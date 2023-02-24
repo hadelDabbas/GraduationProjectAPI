@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hadoool\\source\\repos\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj": {}
+    "C:\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hadoool\\source\\repos\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj": {
+    "C:\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hadoool\\source\\repos\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj",
+        "projectUniqueName": "C:\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj",
         "projectName": "GraduationProjectAPI",
-        "projectPath": "C:\\Users\\Hadoool\\source\\repos\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj",
+        "projectPath": "C:\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj",
         "packagesPath": "C:\\Users\\Hadoool\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hadoool\\source\\repos\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\obj\\",
+        "outputPath": "C:\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

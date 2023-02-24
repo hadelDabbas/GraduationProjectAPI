@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "e6Z9+3W6fRqvPJMwSCr2hC2Dp+QABwJf6EBLUXEJo/rO+YzGqNyLNNDtiQ/vHg6/eLMboM3zeKGa2Hnb+saEFg==",
+  "dgSpecHash": "neqGfyKzv2cncZlhqMhk6Qrk9/qdTNDqmQKmI3Wueo5YpPfrt4Yb4k31P3qzmHWKr4nu9LKlT5JP7Lstnm4fAg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Hadoool\\source\\repos\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj",
+  "projectFilePath": "C:\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
