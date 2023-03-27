@@ -2,7 +2,7 @@
 using GraduationProjectAPI.Infrastructure;
 namespace GraduationProjectAPI.Data
 {
-    public class ComplaintRepo
+    public class ComplaintRepo :IComplaint
     {
         private readonly GraduationProjectDbContext _db;
         public ComplaintRepo(GraduationProjectDbContext db)

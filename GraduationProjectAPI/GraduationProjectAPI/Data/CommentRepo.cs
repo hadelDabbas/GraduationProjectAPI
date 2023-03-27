@@ -2,7 +2,7 @@
 using GraduationProjectAPI.Model;
 namespace GraduationProjectAPI.Data
 {
-    public class CommentRepo
+    public class CommentRepo :IComment
     {
         private readonly GraduationProjectDbContext _db;
         public CommentRepo(GraduationProjectDbContext db)
@@ -22,7 +22,7 @@ namespace GraduationProjectAPI.Data
 
 
         }
-        public Comment GetContent(int id)
+        public Comment GetComment(int id)
         {
             var comment = _db.Comments.First(p => p.Id == id);
             if (comment != null)
