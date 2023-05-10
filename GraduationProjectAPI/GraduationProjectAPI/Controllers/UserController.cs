@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : Controller
     {
@@ -44,8 +44,13 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                db.Save(user);
-                return Ok();
+                bool data = db.IsExisting(user.Email);
+                if (data == false)
+                {
+                    db.Save(user);
+                    return Ok();
+                }
+                else return NotFound(); //return Ok(new List<object>());//return NotFound();
             }
         }
         [HttpPut("{id}")]
@@ -68,5 +73,37 @@ namespace GraduationProjectAPI.Controllers
             db.Delete(id);
             return Ok();
         }
+        [HttpGet]
+        [ActionName("SignIn")]
+        public IActionResult SignIn([FromQuery] string email, [FromQuery] string password)
+        {
+            if (email == null || password == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                var data = db.SignIn(email, password);
+                if (data != null)
+                    return Ok(data);
+                else return NotFound();
+            }
+        }
+        [HttpPut]
+        [ActionName("ChangePassword")]
+        public IActionResult ChangePassword([FromQuery] int id, [FromQuery] string password)
+        {
+            if (id == 0 || password == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                db.ChangePassword(id, password);
+                return Ok();
+            }
+        }
     }
-}
+       
+    }
+

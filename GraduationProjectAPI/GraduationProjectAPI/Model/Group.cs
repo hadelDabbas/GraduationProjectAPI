@@ -10,5 +10,6 @@
         public virtual User? User { set; get; }
         public int IdType { set; get; }
         public virtual Type? Type { set; get; }
+        //image
     }
 }
