@@ -6,8 +6,7 @@ namespace GraduationProjectAPI.Model
     {
         public int Id { set; get; }
         public string Name { set; get; }
-        [Column(TypeName = "date")]
-        public DateTime Age { set; get; }
+        public string  Age { set; get; }
         public string UserName { set; get; }
         public string Password { set; get; }
         public byte[]? Image { set; get; }
