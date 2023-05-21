@@ -298,6 +298,9 @@ namespace GraduationProjectAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("IdPost")
                         .HasColumnType("int");
 
@@ -476,8 +479,11 @@ namespace GraduationProjectAPI.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Age")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Admin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()

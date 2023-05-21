@@ -1,10 +1,13 @@
-﻿namespace GraduationProjectAPI.Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace GraduationProjectAPI.Model
 {
     public class User
     {
         public int Id { set; get; }
         public string Name { set; get; }
-        public DateTime Age { set; get; }
+        [NotMapped]
+        public DateOnly Age { set; get; }
         public string UserName { set; get; }
         public string Password { set; get; }
         public byte[]? Image { set; get; }
@@ -13,6 +16,8 @@
         public string? Paypal { set; get; }
         public string Email { set; get; }
         public string? Phone { set; get; }
+        public string? Admin { set; get; }
+        public string? Description { set; get; }
         public virtual ICollection<UserReference>? UserReference { set; get; }
         public virtual ICollection<Complaint>? Complaint { set; get; }
         public virtual ICollection<GameUser>? GameUser { set; get; }
