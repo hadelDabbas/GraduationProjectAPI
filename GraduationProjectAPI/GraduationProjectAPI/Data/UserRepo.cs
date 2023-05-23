@@ -67,18 +67,20 @@ namespace GraduationProjectAPI.Data
             }
             return true;
         }
-        public void ChangePassword(int Id, string password)
+        public bool ChangePassword(string email, string password)
         {
-            var data = _db.Users.First(p => p.Id == Id);
+            var data = _db.Users.FirstOrDefault(p => p.Email == email);
             if (data != null)
             {
                 data.Password = password;
                 _db.SaveChanges();
+                return true;
             }
+            return false;
         }
         public User SignIn(string email, string password)
         {
-            var data = _db.Users.First(p => p.Email == email);
+            var data = _db.Users.FirstOrDefault(p => p.Email == email);
             if(data != null && data.Password==password)
             {
                 return data;  

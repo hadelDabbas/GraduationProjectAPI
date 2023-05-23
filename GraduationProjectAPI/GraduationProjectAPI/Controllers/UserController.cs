@@ -91,16 +91,17 @@ namespace GraduationProjectAPI.Controllers
         }
         [HttpPut]
         [ActionName("ChangePassword")]
-        public IActionResult ChangePassword([FromQuery] int id, [FromQuery] string password)
+        public IActionResult ChangePassword([FromQuery] string email, [FromQuery] string password)
         {
-            if (id == 0 || password == null)
+            if (email == null || password == null)
             {
                 return BadRequest();
             }
             else
             {
-                db.ChangePassword(id, password);
-                return Ok();
+                if (db.ChangePassword(email, password))
+                    return Ok();
+                else return NotFound();
             }
         }
     }
