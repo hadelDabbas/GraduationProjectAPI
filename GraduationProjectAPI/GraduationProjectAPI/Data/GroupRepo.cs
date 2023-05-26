@@ -46,7 +46,8 @@ namespace GraduationProjectAPI.Data
             if (Group != null)
             {
                 Group.groupName = group.groupName;
-                Group.IdPost = group.IdPost;
+                Group.Description = group.Description;
+                Group.Image = group.Image;
                 Group.IdType = group.IdType;
                 Group.IdUser = group.IdUser;
                 _db.SaveChanges();

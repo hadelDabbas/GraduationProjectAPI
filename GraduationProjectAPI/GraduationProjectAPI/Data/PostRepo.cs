@@ -50,6 +50,7 @@ namespace GraduationProjectAPI.Data
                 Post.Image = post.Image;
                 Post.IdType = post.IdType;
                 Post.IdUser = post.IdUser;
+                post.IdGroup = post.IdGroup;
                 _db.SaveChanges();
             }
         }

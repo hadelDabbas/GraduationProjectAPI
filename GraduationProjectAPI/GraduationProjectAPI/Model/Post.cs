@@ -10,7 +10,9 @@
         public virtual User? User { set; get; }
         public int IdType { set; get; }
         public virtual Type? Type { set; get; }
-        public virtual ICollection<Group>? Group { set; get; }
+        public int IdGroup { set; get; }
+         public virtual Group? Group { set; get; }
+        //   public virtual ICollection<Group>? Group { set; get; }
         public virtual ICollection<Comment>? Comment { set; get; }
     }
 }

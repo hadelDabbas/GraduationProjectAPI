@@ -4,6 +4,7 @@ using GraduationProjectAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraduationProjectAPI.Migrations
 {
     [DbContext(typeof(GraduationProjectDbContext))]
-    partial class GraduationProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230526155458_updateAttribute")]
+    partial class updateAttribute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,13 +177,7 @@ namespace GraduationProjectAPI.Migrations
                     b.Property<int>("IdPost")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
                     b.Property<int?>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.Property<string>("comment")
@@ -190,8 +187,6 @@ namespace GraduationProjectAPI.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PostId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -671,13 +666,7 @@ namespace GraduationProjectAPI.Migrations
                         .WithMany("Comment")
                         .HasForeignKey("PostId");
 
-                    b.HasOne("GraduationProjectAPI.Model.User", "User")
-                        .WithMany("Comment")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Post");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GraduationProjectAPI.Model.Complaint", b =>
@@ -858,8 +847,6 @@ namespace GraduationProjectAPI.Migrations
             modelBuilder.Entity("GraduationProjectAPI.Model.User", b =>
                 {
                     b.Navigation("Buybook");
-
-                    b.Navigation("Comment");
 
                     b.Navigation("Complaint");
 
