@@ -46,7 +46,7 @@ namespace GraduationProjectAPI.Data
             if (Reference != null)
             {
                 Reference.dateTime = reference.dateTime;
-                Reference.IdType = reference.IdType;
+                Reference.IdContent = reference.IdContent;
                 Reference.Link = reference.Link;
                 Reference.referenceName = reference.referenceName;
                 _db.SaveChanges();

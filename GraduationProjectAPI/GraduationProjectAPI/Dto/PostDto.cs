@@ -8,7 +8,7 @@ namespace GraduationProjectAPI.Dto
         public string UserName { get; set; }
         public string GroupName { get; set; }
         public double NumberLike { get; set; }
-       public List<Comment> comments { set; get; }
+       //public List<Comment> comments { set; get; }
         public byte[]? UserImage { set; get; }
         public byte[]? GroupImage { set; get; }
     }

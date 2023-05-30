@@ -4,6 +4,7 @@ namespace GraduationProjectAPI.Infrastructure
 {
     public interface IMain
     {
-        List<PostDto> Posts(int id);
+      public List<PostDto> Posts(int id);
+      public List<PostDto> PostContent(int IdUser, int IdContent);
     }
 }

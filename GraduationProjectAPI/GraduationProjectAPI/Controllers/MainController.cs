@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class MainController : Controller
     {
@@ -15,6 +15,7 @@ namespace GraduationProjectAPI.Controllers
             db = _db;
         }
         [HttpGet]
+        [ActionName("Posts")]
         public IActionResult Posts([FromQuery] int IdUser)
         {
             if(IdUser != 0)
@@ -31,6 +32,25 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             return BadRequest();
+        }
+        [HttpGet]
+        [ActionName("PostsContent")]
+        public IActionResult PostsContent([FromQuery] int IdUser, [FromQuery] int IdContent)
+        {
+            if (IdUser != 0 && IdContent != 0)
+            {
+                var data = db.PostContent(IdUser,IdContent);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            else
+                return BadRequest();
         }
     }
 }

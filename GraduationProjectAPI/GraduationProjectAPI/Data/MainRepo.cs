@@ -35,15 +35,15 @@ namespace GraduationProjectAPI.Data
               {
                     GetUsersPost();
               }
-                if (posts.Count != 0)
+              if (posts.Count != 0)
                 {
                     PostsUser();
                 }
-                if (postDtos.Count != 0)
+              if (postDtos.Count != 0)
                 {
                     return postDtos;
                 }
-                else return null;
+              else return null;
             }
             return null;
         }
@@ -90,7 +90,7 @@ namespace GraduationProjectAPI.Data
                         dto.NumberLike = NumberLikes(e.Id);
                         dto.GroupName = null;
                         dto.GroupImage = null;
-                        dto.comments = _db.Comments.Where(p => p.IdPost == e.Id).ToList();
+                      //  dto.comments = _db.Comments.Where(p => p.IdPost == e.Id).ToList();
                         postDtos.Add(dto);
                     }
                     else
@@ -105,7 +105,7 @@ namespace GraduationProjectAPI.Data
                         dto.NumberLike = NumberLikes(e.Id);
                         dto.GroupName = null;
                         dto.GroupImage = null;
-                        dto.comments = _db.Comments.Where(p => p.IdPost == e.Id).ToList();
+                       // dto.comments = _db.Comments.Where(p => p.IdPost == e.Id).ToList();
                         postDtos.Add(dto);
                     }
                 }
@@ -127,7 +127,7 @@ namespace GraduationProjectAPI.Data
                         dto.NumberLike = NumberLikes(e.Id);
                         dto.GroupName = group.groupName;
                         dto.GroupImage = group.Image;
-                        dto.comments = _db.Comments.Where(p => p.IdPost == e.Id).ToList();
+                       // dto.comments = _db.Comments.Where(p => p.IdPost == e.Id).ToList();
                         postDtos.Add(dto);
                     }
                     else
@@ -141,7 +141,7 @@ namespace GraduationProjectAPI.Data
                         dto.NumberLike = NumberLikes(e.Id);
                         dto.GroupName = group.groupName;
                         dto.GroupImage = group.Image;
-                        dto.comments = _db.Comments.Where(p => p.IdPost == e.Id).ToList();
+                      //  dto.comments = _db.Comments.Where(p => p.IdPost == e.Id).ToList();
                         postDtos.Add(dto);
 
                     }
@@ -149,6 +149,47 @@ namespace GraduationProjectAPI.Data
             }
             if (postDtos.Count != 0) return postDtos;
             else return null;
+        }
+        public List<PostDto> PostContent(int IdUser, int IdContent)
+         {
+            var content = _db.Contents.Where(p => p.Id == IdContent);
+            User user = _db.Users.FirstOrDefault(p => p.Id == IdUser);
+            if (content != null && user != null)
+            {
+                idUser = user.Id;
+                groups = _db.Groups.Where(p => p.IdUser == IdUser && p.IdContent== IdContent).ToList();
+                users = _db.Follows.Where(p => p.followId == IdUser).ToList();
+                if (groups.Count != 0)
+                {
+                    GetGroupsPost();
+
+                }
+                if (users.Count != 0)
+                {
+                    GetUserPostContent(IdContent);
+                }
+                if (posts.Count != 0)
+                {
+                    PostsUser();
+                }
+                if (postDtos.Count != 0)
+                {
+                    return postDtos;
+                }
+                else return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public void GetUserPostContent(int IdContent)
+        {
+            foreach (Follow f in users)
+            {
+                var data = _db.Posts.Where(p => p.IdUser == f.followedId && p.IdContent == IdContent).Include(r => r.Comment).ToList();
+                posts.AddRange(data);
+            }
         }
         public double NumberLikes(int IdPost)
         {

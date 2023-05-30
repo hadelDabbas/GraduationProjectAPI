@@ -45,7 +45,7 @@ namespace GraduationProjectAPI.Data
             var Test = _db.Tests.First(p => p.Id == test.Id);
             if (Test != null)
             {
-                Test.IdType = test.IdType;
+                Test.IdContent = test.IdContent;
                 Test.test = test.test;
                 _db.SaveChanges();
             }

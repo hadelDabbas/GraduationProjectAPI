@@ -26,6 +26,6 @@ namespace GraduationProjectAPI.Model
         public virtual ICollection<Group>? Group { set; get; }
         public virtual ICollection<Follow>? follow { set; get; }
         public virtual ICollection<Follow>? followed { set; get; }
-        public virtual ICollection<Comment>? Comment { set; get; }
+        public virtual ICollection<Comments>? Comment { set; get; }
     }
 }

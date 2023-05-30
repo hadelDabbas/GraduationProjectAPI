@@ -48,7 +48,7 @@ namespace GraduationProjectAPI.Data
                 Group.groupName = group.groupName;
                 Group.Description = group.Description;
                 Group.Image = group.Image;
-                Group.IdType = group.IdType;
+                Group.IdContent = group.IdContent;
                 Group.IdUser = group.IdUser;
                 _db.SaveChanges();
             }

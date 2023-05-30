@@ -48,7 +48,7 @@ namespace GraduationProjectAPI.Data
                 Post.dateTime = post.dateTime;
                 Post.Description = post.Description;
                 Post.Image = post.Image;
-                Post.IdType = post.IdType;
+                Post.IdContent = post.IdContent;
                 Post.IdUser = post.IdUser;
                 post.IdGroup = post.IdGroup;
                 _db.SaveChanges();
