@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CommentsController : Controller
     {
@@ -67,6 +67,42 @@ namespace GraduationProjectAPI.Controllers
         {
             db.Delete(id);
             return Ok();
+        }
+        [HttpGet]
+        [ActionName("PostComment")]
+        public IActionResult PostComment([FromQuery] int IdPost)
+        {
+            if(IdPost != 0)
+            {
+                var data = db.PostComments(IdPost);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else return NotFound();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet]
+        [ActionName("PostCommentDto")]
+        public IActionResult PostCommentDto([FromQuery] int IdPost)
+        {
+            if (IdPost != 0)
+            {
+                var data = db.commentDtos(IdPost);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else return NotFound();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

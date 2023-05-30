@@ -1,4 +1,5 @@
 ﻿using GraduationProjectAPI.Model;
+using GraduationProjectAPI.Dto;
 namespace GraduationProjectAPI.Infrastructure
 {
     public interface IComments
@@ -9,5 +10,6 @@ namespace GraduationProjectAPI.Infrastructure
         public void Update(Comments comment);
         public void Delete(int id);
         public List<Comments> PostComments(int IdPost);
+        public List<CommentDto> commentDtos(int IdPost);
     }
 }

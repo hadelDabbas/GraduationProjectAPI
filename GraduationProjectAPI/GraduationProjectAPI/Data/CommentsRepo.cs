@@ -1,5 +1,8 @@
 ﻿using GraduationProjectAPI.Infrastructure;
 using GraduationProjectAPI.Model;
+using GraduationProjectAPI.Dto;
+using Microsoft.EntityFrameworkCore;
+
 namespace GraduationProjectAPI.Data
 {
     public class CommentsRepo :IComments
@@ -49,6 +52,34 @@ namespace GraduationProjectAPI.Data
                 Comment.IdPost = comment.IdPost;
                 _db.SaveChanges();
             }
+        }
+        public List<Comments> PostComments(int IdPost)
+        {
+            List<Comments> comments = _db.Comments.Where(p => p.IdPost == IdPost).ToList();
+            if (comments.Count != 0)
+            {
+                return comments;
+            }
+            else return null;
+        }
+        public List<CommentDto> commentDtos(int IdPost)
+        {
+            List<Comments> comments = _db.Comments.Where(p => p.IdPost == IdPost).Include(p => p.User).ToList();
+            if (comments.Count != 0)
+            {
+                CommentDto data = new CommentDto();
+                List<CommentDto> dto = new List<CommentDto>();
+                foreach(Comments c in comments)
+                {
+                    User u = _db.Users.FirstOrDefault(p => p.Id == c.IdUser);
+                    data.comment = c.comment;
+                    data.UserImage = u.Image;
+                    data.UserName = u.UserName;
+                    dto.Add(data);
+                }
+                return dto;
+            }
+            else return null;
         }
     }
 }
