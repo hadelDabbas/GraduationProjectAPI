@@ -17,7 +17,7 @@ builder.Services.AddControllers().AddJsonOptions(config => {
     config.JsonSerializerOptions.Converters.Add(new ByteArrayConvertercs());
     config.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
-
+//to  test
 //for migration
 builder.Services.AddDbContext<GraduationProjectDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("sqlServer")));
 builder.Services.AddTransient<IBook, BookRepo>();
