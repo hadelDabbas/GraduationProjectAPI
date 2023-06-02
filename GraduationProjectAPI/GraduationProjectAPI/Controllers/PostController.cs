@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class PostController : Controller
     {
@@ -15,13 +15,15 @@ namespace GraduationProjectAPI.Controllers
             db = _db;
         }
         [HttpGet]
+        [ActionName("GetPosts")]
         public IActionResult GetPosts()
         {
             IQueryable<Post> data = db.GetPosts;
             return Ok(data);
         }
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        [ActionName("GetPost")]
+        public IActionResult GetPost(int id)
         {
             var data = db.GetPost(id);
             if (data != null)
@@ -35,6 +37,7 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpPost]
+        [ActionName("AddPost")]
         public IActionResult AddPost([FromBody] Post post)
         {
             if (post == null)
@@ -49,7 +52,8 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] Post post)
+        [ActionName("UpdatePost")]
+        public IActionResult UpdatePost([FromBody] Post post)
         {
             if (post == null || post.Id == 0)
             {

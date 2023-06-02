@@ -22,15 +22,7 @@ namespace GraduationProjectAPI.Data
 
 
         }
-        public User GetUser(int id)
-        {
-            var user = _db.Users.First(p => p.Id == id);
-            if (user != null)
-                return user;
-            else
-                return null;
-
-        }
+        
         public void Save(User user)
         {
             if (user.Id == 0)
@@ -58,9 +50,9 @@ namespace GraduationProjectAPI.Data
                 _db.SaveChanges();
             }
         }
-        public bool IsExisting(string email)
+        public bool IsExisting(string email,string UserName)
         {
-            bool data = _db.Users.Any(p => p.Email == email);
+            bool data = _db.Users.Any(p => p.Email == email || p.UserName==UserName);
             if (data == false)
             {
                 return false;

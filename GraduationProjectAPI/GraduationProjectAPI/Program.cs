@@ -41,6 +41,7 @@ builder.Services.AddTransient<IUserReference, UserReferenceRepo>();
 builder.Services.AddTransient<IUser, UserRepo>();
 builder.Services.AddTransient<IWriter, WriterRepo>();
 builder.Services.AddTransient<IMain, MainRepo>();
+builder.Services.AddTransient<IProfile, ProfileRepo>();
 //for the swagger
 builder.Services.AddSignalR().AddJsonProtocol(x => x.PayloadSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddControllers();

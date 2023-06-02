@@ -35,8 +35,11 @@ namespace GraduationProjectAPI.Data
         {
             if (book.Id == 0)
             {
-                _db.Books.Add(book);
-                _db.SaveChanges();
+                if (IsExisting(book))
+                {
+                    _db.Books.Add(book);
+                    _db.SaveChanges();
+                }
             }
 
         }
@@ -51,6 +54,13 @@ namespace GraduationProjectAPI.Data
                 Book.IdBookType = book.IdBookType;
                 _db.SaveChanges();
             }
+        }
+        public bool IsExisting(Book b)
+        {
+            bool data = _db.Books.Any(p => p.BookName == b.BookName);
+            if (data != false)
+                return true;
+            else return false;
         }
     }
 }

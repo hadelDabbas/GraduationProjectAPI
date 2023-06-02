@@ -20,20 +20,8 @@ namespace GraduationProjectAPI.Controllers
             IQueryable<User> data = db.GetUsers;
             return Ok(data);
         }
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            var data = db.GetUser(id);
-            if (data != null)
-            {
-                return Ok(data);
-            }
-            else
-            {
-                return NotFound();
-               // return Ok(new List<object>());
-            }
-        }
+        
+      
         [HttpPost]
         public IActionResult AddUser([FromBody] User user)
         {
@@ -44,7 +32,7 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                bool data = db.IsExisting(user.Email);
+                bool data = db.IsExisting(user.Email,user.UserName);
                 if (data == false)
                 {
                     db.Save(user);
