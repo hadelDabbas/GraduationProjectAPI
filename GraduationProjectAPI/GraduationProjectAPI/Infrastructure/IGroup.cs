@@ -1,4 +1,5 @@
-﻿using GraduationProjectAPI.Model;
+﻿using GraduationProjectAPI.Dto;
+using GraduationProjectAPI.Model;
 namespace GraduationProjectAPI.Infrastructure
 {
     public interface IGroup
@@ -8,5 +9,7 @@ namespace GraduationProjectAPI.Infrastructure
         public void Save(Group group);
         public void Update(Group group);
         public void Delete(int id);
+        public List<User> GetGroupMembers(int IdGroup);
+        public List<PostDto> GroupPost(int IdGroup,int IdUser);
     }
 }

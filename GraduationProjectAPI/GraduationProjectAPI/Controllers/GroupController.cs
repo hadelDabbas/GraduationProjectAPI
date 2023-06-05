@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class GroupController : Controller
     {
@@ -15,12 +15,14 @@ namespace GraduationProjectAPI.Controllers
             db = _db;
         }
         [HttpGet]
+        [ActionName("GetGroups")]
         public IActionResult GetGroups()
         {
             IQueryable<Group> data = db.GetGroups;
             return Ok(data);
         }
         [HttpGet("{id}")]
+        [ActionName("Get")]
         public IActionResult Get(int id)
         {
             var data = db.GetGroup(id);
@@ -35,6 +37,7 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpPost]
+        [ActionName("AddGroup")]
         public IActionResult AddGroup([FromBody] Group group)
         {
             if (group == null)
@@ -63,10 +66,47 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpDelete]
+        [ActionName("Delete")]
         public IActionResult Delete(int id)
         {
             db.Delete(id);
             return Ok();
+        }
+        [HttpGet]
+        [ActionName("GetGroupPosts")]
+        public IActionResult GetGroupPosts([FromQuery] int IdGroup,[FromQuery] int IdUser)
+        {
+            if (IdGroup != 0)
+            {
+                var data = db.GroupPost(IdGroup,IdUser);
+                if(data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            else return BadRequest();
+        }
+        [HttpGet]
+        [ActionName("GetGroupMembers")]
+        public IActionResult GetGroupMembers([FromQuery] int IdGroup)
+        {
+            if (IdGroup != 0)
+            {
+                var data = db.GetGroupMembers(IdGroup);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            else return BadRequest();
         }
     }
 }

@@ -53,7 +53,13 @@ namespace GraduationProjectAPI.Data
             var user = _db.Users.Where(p => p.Id == IdUser);
             if (user != null)
             {
-                List<Group> groups = _db.Groups.Where(p => p.IdUser == IdUser).ToList();
+                List<Group> groups = new List<Group>();
+                List<UserGroup> userGroup = _db.UserGroups.Where(p => p.IdUser == IdUser).ToList();
+                foreach(UserGroup ug in userGroup)
+                {
+                    Group data = _db.Groups.FirstOrDefault(p => p.Id == ug.IdGroup);
+                    groups.Add(data);
+                }
                 if (groups.Count == 0) return null;
                 return groups;
             }

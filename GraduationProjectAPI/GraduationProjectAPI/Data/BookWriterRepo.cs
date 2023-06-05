@@ -24,7 +24,7 @@ namespace GraduationProjectAPI.Data
         }
         public BookWriter GetBookWriter(int id)
         {
-            var bookWriter = _db.BookWriters.First(p => p.Id == id);
+            var bookWriter = _db.BookWriters.FirstOrDefault(p => p.Id == id);
             if (bookWriter != null)
                 return bookWriter;
             else

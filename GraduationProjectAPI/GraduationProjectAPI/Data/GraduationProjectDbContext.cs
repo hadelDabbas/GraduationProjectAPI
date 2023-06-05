@@ -23,12 +23,13 @@ namespace GraduationProjectAPI.Data
         public DbSet<Library> Libraries { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Reference> References { get; set; }
-        public DbSet<Test> Tests { get; set; }
         public DbSet<Content> Contents { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserPost> UserPosts { get; set; }
         public DbSet<UserReference> UserReferences { get; set; }
         public DbSet<Writer> Writers { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
+        public DbSet<Test> Tests { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Follow>()

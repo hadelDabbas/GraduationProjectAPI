@@ -8,7 +8,8 @@ namespace GraduationProjectAPI.Data
     public class MainRepo :IMain
     {
         public readonly GraduationProjectDbContext _db;
-        List<Group> groups = new List<Group>();
+        List<UserGroup> Usergroups = new List<UserGroup>();
+        List<Group> group = new List<Group>();
         List<Follow> users = new List<Follow>();
       //  List<Comment> posts = new List<Comment>();
         List<Post> posts = new List<Post>();
@@ -24,9 +25,10 @@ namespace GraduationProjectAPI.Data
             if(user != null)
             {
                 idUser = user.Id;
-                 groups = _db.Groups.Where(p => p.IdUser == id).ToList();
+                // groups = _db.Groups.Where(p => p.IdUser == id).ToList();
+              Usergroups = _db.UserGroups.Where(p => p.IdUser == id).Include(p => p.Group).ToList();
                 users = _db.Follows.Where(p => p.followId == id).ToList();
-              if(groups.Count != 0)
+              if(Usergroups.Count != 0)
               {
                  GetGroupsPost();
                  
@@ -49,13 +51,23 @@ namespace GraduationProjectAPI.Data
         }
         public void GetGroupsPost()
         {
-           foreach(Group g in groups)
+           foreach(UserGroup g in Usergroups)
            {
                 //    var groupPost = _db.Posts.Where(p => p.IdGroup == g.Id).SelectMany(t=>t.Comment).Include(r=>r.Post).ToList();
-                var groupPost = _db.Posts.Where(p => p.IdGroup == g.Id && p.IdUser != idUser).Include(R=>R.Comment).Include(r => r.Group).ToList();
+                var groupPost = _db.Posts.Where(p => p.IdGroup == g.IdGroup && p.IdUser != idUser).Include(R=>R.Comment).Include(r => r.Group).ToList();
                 posts.AddRange(groupPost);
             }
            
+        }
+        public void GetGroupsContentPost(List<Group> groups)
+        {
+            foreach (Group g in groups)
+            {
+                //    var groupPost = _db.Posts.Where(p => p.IdGroup == g.Id).SelectMany(t=>t.Comment).Include(r=>r.Post).ToList();
+                var groupPost = _db.Posts.Where(p => p.IdGroup == g.Id && p.IdUser != idUser).Include(R => R.Comment).Include(r => r.Group).ToList();
+                posts.AddRange(groupPost);
+            }
+
         }
         public void GetUsersPost()
         {
@@ -157,11 +169,16 @@ namespace GraduationProjectAPI.Data
             if (content != null && user != null)
             {
                 idUser = user.Id;
-                groups = _db.Groups.Where(p => p.IdUser == IdUser && p.IdContent== IdContent).ToList();
-                users = _db.Follows.Where(p => p.followId == IdUser).ToList();
-                if (groups.Count != 0)
+                List<UserGroup> userGroup = _db.UserGroups.Where(p => p.IdUser == idUser).ToList();
+                foreach(UserGroup ug in userGroup)
                 {
-                    GetGroupsPost();
+                Group  data = _db.Groups.Where(p => p.Id == ug.IdGroup && p.IdContent == IdContent).FirstOrDefault();
+                    group.Add(data);
+                }       
+                users = _db.Follows.Where(p => p.followId == IdUser).ToList();
+                if (group.Count != 0)
+                {
+                    GetGroupsContentPost(group);
 
                 }
                 if (users.Count != 0)
