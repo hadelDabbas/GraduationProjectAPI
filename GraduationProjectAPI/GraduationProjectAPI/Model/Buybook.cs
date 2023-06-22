@@ -8,7 +8,7 @@
         public string? Address { set; get; }
         public int IdUser { set; get; }
         public virtual User? User { set; get; }
-        public int IdLibrary { set; get; }
-        public virtual Library? Library { set; get; }
+        public int IdBookLibrary { set; get; }
+        public virtual BookLibrary? BookLibrary { set; get; }
     }
 }

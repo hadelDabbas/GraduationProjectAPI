@@ -46,7 +46,7 @@ namespace GraduationProjectAPI.Data
             if (BuyBook != null)
             {
                 BuyBook.Address = buyBook.Address;
-                BuyBook.IdLibrary = buyBook.IdLibrary;
+                BuyBook.IdBookLibrary = buyBook.IdBookLibrary;
                 BuyBook.IdUser = buyBook.IdUser;
                 BuyBook.Price = buyBook.Price;
                 _db.SaveChanges();
