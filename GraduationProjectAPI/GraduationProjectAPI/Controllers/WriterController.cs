@@ -30,8 +30,8 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                return NotFound();
-                //return Ok(new List<object>());
+               // return NotFound();
+                return Ok(new List<object>());
             }
         }
         [HttpPost]
@@ -39,8 +39,8 @@ namespace GraduationProjectAPI.Controllers
         {
             if (writer == null)
             {
-                return BadRequest();
-               // return Ok(new List<object>());
+               // return BadRequest();
+               return Ok(new List<object>());
             }
             else
             {
@@ -53,8 +53,8 @@ namespace GraduationProjectAPI.Controllers
         {
             if (writer == null || writer.Id == 0)
             {
-                return BadRequest();
-             //   return Ok(new List<object>());
+               // return BadRequest();
+               return Ok(new List<object>());
             }
             else
             {

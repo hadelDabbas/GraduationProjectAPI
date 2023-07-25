@@ -32,8 +32,8 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                return NotFound();
-               // return Ok(new List<object>());
+               // return NotFound();
+                return Ok(new List<object>());
             }
         }
         [HttpPost]
@@ -42,8 +42,8 @@ namespace GraduationProjectAPI.Controllers
         {
             if (group == null)
             {
-                return BadRequest();
-               // return Ok(new List<object>());
+              //  return BadRequest();
+                return Ok(new List<object>());
             }
             else
             {
@@ -56,8 +56,8 @@ namespace GraduationProjectAPI.Controllers
         {
             if (group == null || group.Id == 0)
             {
-                return BadRequest();
-               // return Ok(new List<object>());
+               // return BadRequest();
+                return Ok(new List<object>());
             }
             else
             {
@@ -78,17 +78,22 @@ namespace GraduationProjectAPI.Controllers
         {
             if (IdGroup != 0)
             {
-                var data = db.GroupPost(IdGroup,IdUser);
-                if(data != null)
+                var data = db.GroupPost(IdGroup, IdUser);
+                if (data != null)
                 {
                     return Ok(data);
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
-            else return BadRequest();
+            else
+            {
+                // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
         [HttpGet]
         [ActionName("GetGroupMembers")]
@@ -103,10 +108,15 @@ namespace GraduationProjectAPI.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    //return NotFound();
+                    return Ok(new List<object>());
                 }
             }
-            else return BadRequest();
+            else
+            {
+                // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
     }
 }

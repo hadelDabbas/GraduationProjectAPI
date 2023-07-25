@@ -18,20 +18,24 @@ namespace GraduationProjectAPI.Controllers
         [ActionName("Posts")]
         public IActionResult Posts([FromQuery] int IdUser)
         {
-            if(IdUser != 0)
+            if (IdUser != 0)
             {
                 var data = db.Posts(IdUser);
-                if(data != null)
+                if (data != null)
                 {
                     return Ok(data);
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
             else
-            return BadRequest();
+            {
+                // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
         [HttpGet]
         [ActionName("PostsContent")]
@@ -39,18 +43,22 @@ namespace GraduationProjectAPI.Controllers
         {
             if (IdUser != 0 && IdContent != 0)
             {
-                var data = db.PostContent(IdUser,IdContent);
+                var data = db.PostContent(IdUser, IdContent);
                 if (data != null)
                 {
                     return Ok(data);
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
             else
-                return BadRequest();
+            {
+                // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
     }
 }

@@ -17,19 +17,24 @@ namespace GraduationProjectAPI.Controllers
         [ActionName("Search")]
         public IActionResult Search([FromQuery]string search,[FromQuery] int IdUser)
         {
-            if (search != null || IdUser!=0)
+            if (search != null || IdUser != 0)
             {
-                var data = db.Search(search,IdUser);
-                if(data != null)
+                var data = db.Search(search, IdUser);
+                if (data != null)
                 {
                     return Ok(data);
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
-            else return BadRequest();
+            else
+            { 
+              //  return BadRequest();
+                return Ok(new List<object>());
+            }
         }
         [HttpGet]
         [ActionName("SearchUsers")]
@@ -38,16 +43,21 @@ namespace GraduationProjectAPI.Controllers
             if (search != null)
             {
                 var data = db.SearchUser(search);
-                if(data != null)
+                if (data != null)
                 {
                     return Ok(data);
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
-            else return BadRequest();
+            else
+            {
+                // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
         [HttpGet]
         [ActionName("SearchGroups")]
@@ -62,10 +72,15 @@ namespace GraduationProjectAPI.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
-            else return BadRequest();
+            else
+            {
+                // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
         [HttpGet]
         [ActionName("SearchContent")]
@@ -80,10 +95,15 @@ namespace GraduationProjectAPI.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    //  return NotFound();
+                    return Ok(new List<object>());
                 }
             }
-            else return BadRequest();
+            else
+            {
+                // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
         [HttpGet]
         [ActionName("SearchLibrary")]
@@ -98,10 +118,15 @@ namespace GraduationProjectAPI.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
-            else return BadRequest();
+            else
+            {
+                // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
         [HttpGet]
         [ActionName("SearchComplaint")]
@@ -109,17 +134,22 @@ namespace GraduationProjectAPI.Controllers
         {
             if (search != null)
             {
-                var data = db.SearchComplaint(search,IdUser);
+                var data = db.SearchComplaint(search, IdUser);
                 if (data != null)
                 {
                     return Ok(data);
                 }
                 else
                 {
-                    return NotFound();
+                    //  return NotFound();
+                    return Ok(new List<object>());
                 }
             }
-            else return BadRequest();
+            else
+            {
+               // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
         [HttpGet]
         [ActionName("SearchReferance")]
@@ -134,10 +164,15 @@ namespace GraduationProjectAPI.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
-            else return BadRequest();
+            else
+            {
+                //  return BadRequest();
+                return Ok(new List<object>());
+            }
         }
         [HttpGet]
         [ActionName("SearchBook")]
@@ -152,10 +187,15 @@ namespace GraduationProjectAPI.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    //  return NotFound();
+                    return Ok(new List<object>());
                 }
             }
-            else return BadRequest();
+            else
+            {
+                // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
         [HttpGet]
         [ActionName("SearchWriter")]
@@ -170,10 +210,15 @@ namespace GraduationProjectAPI.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
-            else return BadRequest();
+            else
+            {
+                //  return BadRequest();
+                return Ok(new List<object>());
+            }
         }
     }
 }

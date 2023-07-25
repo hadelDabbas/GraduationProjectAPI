@@ -27,8 +27,8 @@ namespace GraduationProjectAPI.Controllers
         {
             if (user == null)
             {
-                return BadRequest();
-               // return Ok(new List<object>());
+               // return BadRequest();
+                return Ok(new List<object>());
             }
             else
             {
@@ -38,7 +38,11 @@ namespace GraduationProjectAPI.Controllers
                     db.Save(user);
                     return Ok();
                 }
-                else return NotFound(); //return Ok(new List<object>());//return NotFound();
+                else
+                {
+                   // return NotFound(); 
+                    return Ok(new List<object>());//return NotFound();
+                }
             }
         }
         [HttpPut("{id}")]
@@ -46,8 +50,8 @@ namespace GraduationProjectAPI.Controllers
         {
             if (user == null || user.Id == 0)
             {
-                return BadRequest();
-               // return Ok(new List<object>());
+              //  return BadRequest();
+               return Ok(new List<object>());
             }
             else
             {
@@ -67,14 +71,21 @@ namespace GraduationProjectAPI.Controllers
         {
             if (email == null || password == null)
             {
-                return BadRequest();
+                //  return BadRequest();
+                return Ok(new List<object>());
             }
             else
             {
                 var data = db.SignIn(email, password);
                 if (data != null)
+                {
                     return Ok(data);
-                else return NotFound();
+                }
+                else
+                {
+                    // return NotFound();
+                    return Ok(new List<object>());
+                }
             }
         }
         [HttpPut]
@@ -83,13 +94,20 @@ namespace GraduationProjectAPI.Controllers
         {
             if (email == null || password == null)
             {
-                return BadRequest();
+                // return BadRequest();
+                return Ok(new List<object>());
             }
             else
             {
                 if (db.ChangePassword(email, password))
+                {
                     return Ok();
-                else return NotFound();
+                }
+                else
+                {
+                    // return NotFound();
+                    return Ok(new List<object>());
+                }
             }
         }
     }

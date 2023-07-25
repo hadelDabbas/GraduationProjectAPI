@@ -25,12 +25,14 @@ namespace GraduationProjectAPI.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    //  return NotFound();
+                    return Ok(new List<object>());
                 }
             }
             else
             {
-                return BadRequest();
+                // return BadRequest();
+                return Ok(new List<object>());
             }
         }
         [HttpGet]
@@ -46,12 +48,14 @@ namespace GraduationProjectAPI.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
             else
             {
-                return BadRequest();
+                // return BadRequest();
+                return Ok(new List<object>());
             }
         }
         [HttpGet]
@@ -67,12 +71,14 @@ namespace GraduationProjectAPI.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
             else
             {
-                return BadRequest();
+                // return BadRequest();
+                return Ok(new List<object>());
             }
         }
         [HttpGet]
@@ -88,12 +94,14 @@ namespace GraduationProjectAPI.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return Ok(new List<object>());
                 }
             }
             else
             {
-                return BadRequest();
+                // return BadRequest();
+                return Ok(new List<object>());
             }
         }
         [HttpGet("{id}")]
@@ -107,8 +115,8 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                return NotFound();
-                // return Ok(new List<object>());
+               // return NotFound();
+                 return Ok(new List<object>());
             }
         }
     }

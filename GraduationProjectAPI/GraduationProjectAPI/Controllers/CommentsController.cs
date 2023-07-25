@@ -30,8 +30,8 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                return NotFound();
-               // return Ok(new List<object>());
+                //  return NotFound();
+                 return Ok(new List<object>());
             }
         }
         [HttpPost]
@@ -39,8 +39,8 @@ namespace GraduationProjectAPI.Controllers
         {
             if (comment == null)
             {
-                return BadRequest();
-                //return Ok(new List<object>());
+                //  return BadRequest();
+                return Ok(new List<object>());
             }
             else
             {
@@ -53,8 +53,8 @@ namespace GraduationProjectAPI.Controllers
         {
             if (comment == null || comment.Id == 0)
             {
-                return BadRequest();
-               // return Ok(new List<object>());
+                //  return BadRequest();
+                 return Ok(new List<object>());
             }
             else
             {
@@ -79,11 +79,16 @@ namespace GraduationProjectAPI.Controllers
                 {
                     return Ok(data);
                 }
-                else return NotFound();
+                else
+                {
+                    // return NotFound(); 
+                    return Ok(new List<object>());
+                }
             }
             else
             {
-                return BadRequest();
+                // return BadRequest();
+                return Ok(new List<object>());
             }
         }
         [HttpGet]
@@ -97,11 +102,16 @@ namespace GraduationProjectAPI.Controllers
                 {
                     return Ok(data);
                 }
-                else return NotFound();
+                else
+                {
+                   // return NotFound();
+                    return Ok(new List<object>());
+                }
             }
             else
             {
-                return BadRequest();
+               // return BadRequest();
+                return Ok(new List<object>());
             }
         }
     }
