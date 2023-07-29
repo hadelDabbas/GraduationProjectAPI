@@ -39,6 +39,7 @@ builder.Services.AddTransient<IContent, ContentRepo>();
 builder.Services.AddTransient<IUserPost, UserPostRepo>();
 builder.Services.AddTransient<IUserReference, UserReferenceRepo>();
 builder.Services.AddTransient<IUser, UserRepo>();
+builder.Services.AddTransient<IUserGroup, UserGroupRepo>();
 builder.Services.AddTransient<IWriter, WriterRepo>();
 builder.Services.AddTransient<IMain, MainRepo>();
 builder.Services.AddTransient<IProfile, ProfileRepo>();
