@@ -90,5 +90,51 @@ namespace GraduationProjectAPI.Controllers
                 return Ok(new List<object>());
             }
         }
+        [HttpGet]
+        [ActionName("GetBookWriters")]
+        public IActionResult GetBookWriters([FromQuery] int IdLibrary,[FromQuery] int IdWriter)
+        {
+            if(IdLibrary != 0 && IdWriter !=0)
+            {
+                var data = db.GetBookWriters(IdLibrary, IdWriter);
+                if(data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                  //  return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+              //  return BadRequest();
+                return Ok(new List<object>());
+            }
+        }
+        [HttpGet]
+        [ActionName("GetBookType")]
+        public IActionResult GetBookType([FromQuery] int IdLibrary,[FromQuery] int IdType)
+        {
+            if(IdLibrary != 0 && IdType !=0)
+            {
+                var data = db.GetBookType(IdLibrary, IdType);
+                if(data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                   // return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+              //  return BadRequest();
+                return Ok(new List<object>());
+            }
+        }
     }
 }

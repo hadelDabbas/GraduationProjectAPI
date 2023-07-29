@@ -60,6 +60,7 @@ namespace GraduationProjectAPI.Data
                 foreach(BookLibrary e in books)
                 {
                     Book b = _db.Books.FirstOrDefault(p => p.Id == e.IdBook);
+                    if(b!= null)
                     Book.Add(b);
                 }
                 if(Book.Count != 0)
@@ -70,6 +71,56 @@ namespace GraduationProjectAPI.Data
                 {
                     return null;
                 }
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public List<Book> GetBookWriters(int IdLibrary, int IdWriter)
+        {
+            var library = _db.Libraries.FirstOrDefault(p => p.Id == IdLibrary);
+            var writer = _db.Writers.FirstOrDefault(p => p.Id == IdWriter);
+            List<BookWriter> bookWriters=new List<BookWriter>();
+            List<Book> book = new List<Book>();
+            if(library != null && writer != null)
+            {
+                List<BookLibrary> bookLibraries = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary).ToList();
+                foreach(BookLibrary e in bookLibraries)
+                {
+                    // List<BookWriter> books = _db.Writers.Where(p => p.Id == IdWriter && p.id).SelectMany(p => p.BookWriter).ToList();
+                  BookWriter  c = _db.BookWriters.FirstOrDefault(p => p.IdWriter == IdWriter && p.IdBook == e.IdBook);
+                  if(c!= null)
+                    bookWriters.Add(c);
+                }
+                foreach(BookWriter e in bookWriters)
+                {
+                    Book b = _db.Books.FirstOrDefault(p => p.Id == e.IdBook);
+                    if(b!= null)
+                    book.Add(b);
+                }
+                return book;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public List<Book> GetBookType(int IdLibrary, int IdType)
+        {
+            var library = _db.Libraries.Where(p => p.Id == IdLibrary);
+            var bookType = _db.BookTypes.Where(p => p.Id == IdType);
+            List<Book> book = new List<Book>();
+            if (library != null && bookType != null)
+            {
+                List<BookLibrary> bookLibraries = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary).ToList();
+                foreach(BookLibrary e in bookLibraries)
+                {
+                    Book b = _db.Books.FirstOrDefault(p => p.Id == e.IdBook && p.IdBookType == IdType);
+                    if (b != null)
+                        book.Add(b);
+                }
+                return book;
             }
             else
             {
