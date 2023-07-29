@@ -87,14 +87,22 @@ namespace GraduationProjectAPI.Controllers
         [ActionName("GetReferenceLink")]
         public IActionResult GetReferenceLink([FromQuery] int IdContent)
         {
-            var data = db.GetRefrenceLink(IdContent);
-            if (data != null)
+            if (IdContent != 0)
             {
-                return Ok(data);
+                var data = db.GetRefrenceLink(IdContent);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    //return NotFound();
+                    return Ok(new List<object>());
+                }
             }
             else
             {
-                //return NotFound();
+                //  return BadRequest();
                 return Ok(new List<object>());
             }
         }

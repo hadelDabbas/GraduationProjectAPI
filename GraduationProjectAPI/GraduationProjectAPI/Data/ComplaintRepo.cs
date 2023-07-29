@@ -50,5 +50,17 @@ namespace GraduationProjectAPI.Data
                 _db.SaveChanges();
             }
         }
+        public List<Complaint> UserComplaint(int IdUser)
+        {
+            List<Complaint> complaints = _db.Complaints.Where(p => p.IdUser == IdUser).ToList();
+            if(complaints.Count !=0 )
+            {
+                return complaints;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ComplaintController : Controller
     {
@@ -67,6 +67,29 @@ namespace GraduationProjectAPI.Controllers
         {
             db.Delete(id);
             return Ok();
+        }
+        [HttpGet]
+        [ActionName("GetUserComplaints")]
+        public IActionResult GetUserComplaints([FromQuery] int IdUser)
+        {
+            if(IdUser != 0)
+            {
+                var data = db.UserComplaint(IdUser);
+                if(data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                   // return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+                // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
     }
 }

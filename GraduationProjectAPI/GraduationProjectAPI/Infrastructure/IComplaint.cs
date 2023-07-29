@@ -8,5 +8,6 @@ namespace GraduationProjectAPI.Infrastructure
         public void Save(Complaint complaint);
         public void Update(Complaint complaint);
         public void Delete(int id);
+        public List<Complaint> UserComplaint(int IdUser);
     }
 }
