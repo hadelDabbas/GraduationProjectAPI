@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ReferenceController : Controller
     {
@@ -67,6 +67,36 @@ namespace GraduationProjectAPI.Controllers
         {
             db.Delete(id);
             return Ok();
+        }
+        [HttpGet]
+        [ActionName("GetReferenceContent")]
+        public IActionResult GetReferenceContent()
+        {
+            var data = db.GetRefrencesContent();
+            if (data != null)
+            {
+                return Ok(data);
+            }
+            else
+            {
+                //return NotFound();
+                return Ok(new List<object>());
+            }
+        }
+        [HttpGet]
+        [ActionName("GetReferenceLink")]
+        public IActionResult GetReferenceLink([FromQuery] int IdContent)
+        {
+            var data = db.GetRefrenceLink(IdContent);
+            if (data != null)
+            {
+                return Ok(data);
+            }
+            else
+            {
+                //return NotFound();
+                return Ok(new List<object>());
+            }
         }
     }
 }

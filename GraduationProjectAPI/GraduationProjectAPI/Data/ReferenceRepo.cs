@@ -1,5 +1,6 @@
 ﻿using GraduationProjectAPI.Infrastructure;
 using GraduationProjectAPI.Model;
+using GraduationProjectAPI.Dto;
 namespace GraduationProjectAPI.Data
 {
     public class ReferenceRepo:IReference
@@ -51,6 +52,31 @@ namespace GraduationProjectAPI.Data
                 Reference.referenceName = reference.referenceName;
                 _db.SaveChanges();
             }
+        }
+        public List<string> GetRefrencesContent()
+        {
+            List<string> contents = new List<string>();
+            List<Reference> Refcontents = _db.References.Where(p => p.IdContent != 0).ToList();
+            foreach(Reference e in Refcontents)
+            {
+                Content c = _db.Contents.FirstOrDefault(p => p.Id == e.IdContent);
+                if( !contents.Contains(c.typeName))
+                contents.Add(c.typeName);
+            }
+            if (contents.Count != 0)
+            {
+                return contents;
+            }
+            else return null;
+        }
+        public List<Reference> GetRefrenceLink(int IdContenet)
+        {
+            List<Reference> references = _db.References.Where(p => p.IdContent == IdContenet).ToList();
+            if(references.Count != 0)
+            {
+                return references;
+            }
+            return null;
         }
     }
 }
