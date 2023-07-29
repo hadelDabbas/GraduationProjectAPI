@@ -44,6 +44,9 @@ builder.Services.AddTransient<IWriter, WriterRepo>();
 builder.Services.AddTransient<IMain, MainRepo>();
 builder.Services.AddTransient<IProfile, ProfileRepo>();
 builder.Services.AddTransient<ISearch, SearchRepo>();
+builder.Services.AddTransient<IAccessibility, AccessibilityRepo>();
+builder.Services.AddTransient<IUserAccessibility, UserAccessibilityRepo>();
+builder.Services.AddTransient<IAnswer, AnswerRepo>();
 //for the swagger
 builder.Services.AddSignalR().AddJsonProtocol(x => x.PayloadSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddControllers();

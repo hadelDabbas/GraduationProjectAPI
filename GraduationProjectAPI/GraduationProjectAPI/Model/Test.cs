@@ -6,5 +6,6 @@
         public string test { set; get; }
         public int IdContent { set; get; }
         public virtual Content? Content { set; get; }
+        public virtual ICollection<Answer>? Answer { set; get; }
     }
 }

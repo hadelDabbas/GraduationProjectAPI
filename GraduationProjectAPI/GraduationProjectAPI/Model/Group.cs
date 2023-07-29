@@ -9,6 +9,7 @@
       //  public virtual Post? Post { set; get; }
         //public int IdUser { set; get; }
        // public virtual User? User { set; get; }
+        public bool IsDeleted { set; get; }
         public int IdContent { set; get; }
         public virtual Content? Content { set; get; }
         public byte[]? Image { set; get; }

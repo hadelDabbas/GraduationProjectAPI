@@ -28,6 +28,6 @@ namespace GraduationProjectAPI.Model
         public virtual ICollection<Follow>? followed { set; get; }
         public virtual ICollection<Comments>? Comment { set; get; }
         public virtual ICollection<UserGroup>? UserGroup { set; get; }
-
+        public virtual ICollection<UserAccessibility>? UserAccessibility { set; get; }
     }
 }

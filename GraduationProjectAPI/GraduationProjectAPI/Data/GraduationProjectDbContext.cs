@@ -30,6 +30,9 @@ namespace GraduationProjectAPI.Data
         public DbSet<Writer> Writers { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<Test> Tests { get; set; }
+        public DbSet<Accessibility> Accessibilities { get; set; }
+        public DbSet<UserAccessibility> UserAccessibilities { get; set; }
+        public DbSet<Answer> Answers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Follow>()
