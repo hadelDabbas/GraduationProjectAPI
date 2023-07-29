@@ -42,12 +42,38 @@ namespace GraduationProjectAPI.Data
         }
         public void Update(Library library)
         {
-            var Library = _db.Libraries.First(p => p.Id == library.Id);
+            var Library = _db.Libraries.FirstOrDefault(p => p.Id == library.Id);
             if (Library != null)
             {
                 Library.libraryAddress = library.libraryAddress;
                 Library.libraryName = library.libraryName;
                 _db.SaveChanges();
+            }
+        }
+        public List<Book> GetBookLibrary(int IdLibrary)
+        {
+            List<Book> Book = new List<Book>();
+            var library = _db.Libraries.FirstOrDefault(p => p.Id == IdLibrary);
+            if(library != null)
+            {
+                List<BookLibrary> books = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary).ToList();
+                foreach(BookLibrary e in books)
+                {
+                    Book b = _db.Books.FirstOrDefault(p => p.Id == e.IdBook);
+                    Book.Add(b);
+                }
+                if(Book.Count != 0)
+                {
+                    return Book;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
             }
         }
     }

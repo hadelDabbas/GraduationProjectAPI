@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class BookController : Controller
     {
@@ -67,6 +67,30 @@ namespace GraduationProjectAPI.Controllers
         {
             db.Delete(id);
             return Ok();
+        }
+        [HttpGet]
+        [ActionName("GetBookDetails")]
+        public IActionResult GetBookDetails([FromQuery] int IdBook)
+        {
+            if(IdBook != 0)
+            {
+
+                var data = db.BookDetails(IdBook);
+                if(data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                  //  return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+               // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
     }
 }

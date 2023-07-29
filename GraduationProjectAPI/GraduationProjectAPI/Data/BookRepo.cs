@@ -1,4 +1,5 @@
-﻿using GraduationProjectAPI.Infrastructure;
+﻿using GraduationProjectAPI.Dto;
+using GraduationProjectAPI.Infrastructure;
 using GraduationProjectAPI.Model;
 namespace GraduationProjectAPI.Data
 {
@@ -61,6 +62,30 @@ namespace GraduationProjectAPI.Data
             if (data != false)
                 return true;
             else return false;
+        }
+        public BookDetailsDto BookDetails(int IdBook)
+        {
+            List<string> Writers = new List<string>();
+            BookDetailsDto dto = new BookDetailsDto();
+            var book = _db.Books.FirstOrDefault(p => p.Id == IdBook);
+            if(book != null)
+            {
+                List<BookWriter> bookWriters = _db.BookWriters.Where(p => p.IdBook == IdBook).ToList();
+                foreach(BookWriter e in bookWriters)
+                {
+                    Writer w = _db.Writers.FirstOrDefault(p => p.Id == e.IdWriter);
+                    Writers.Add(w.writerName);
+                }
+                BookType bookType = _db.BookTypes.FirstOrDefault(p => p.Id == book.IdBookType);
+                dto.Book = book;
+                dto.Writers = Writers;
+                dto.Type = bookType.bookType;
+                return dto;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

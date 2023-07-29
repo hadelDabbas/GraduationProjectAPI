@@ -8,5 +8,6 @@ namespace GraduationProjectAPI.Infrastructure
         public void Save(Writer writer);
         public void Update(Writer writer);
         public void Delete(int id);
+        
     }
 }

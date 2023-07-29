@@ -1,4 +1,5 @@
 ﻿using GraduationProjectAPI.Model;
+using GraduationProjectAPI.Dto;
 namespace GraduationProjectAPI.Infrastructure
 {
     public interface IBook
@@ -8,5 +9,6 @@ namespace GraduationProjectAPI.Infrastructure
         public void Save(Book book);
         public void Update(Book book);
         public void Delete(int id);
+        public BookDetailsDto BookDetails(int IdBook);
     }
 }
