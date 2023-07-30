@@ -11,10 +11,10 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<BookLibrary> GetBookLibraries => _db.BookLibraries;
 
-        public void Delete(int id)
+        public void Delete(BookLibrary bookLibrary)
         {
-            var bookLibrary = _db.BookLibraries.FirstOrDefault(p => p.Id == id);
-            if (bookLibrary != null)
+            var BookLibrary = _db.BookLibraries.FirstOrDefault(p => p.Id == bookLibrary.Id);
+            if (BookLibrary != null)
             {
                 _db.BookLibraries.Remove(bookLibrary);
                 _db.SaveChanges();
@@ -35,8 +35,11 @@ namespace GraduationProjectAPI.Data
         {
             if (bookLibrary.Id == 0)
             {
-                _db.BookLibraries.Add(bookLibrary);
-                _db.SaveChanges();
+                if (IsExisting(bookLibrary) != true)
+                {
+                    _db.BookLibraries.Add(bookLibrary);
+                    _db.SaveChanges();
+                }
             }
 
         }
@@ -48,6 +51,18 @@ namespace GraduationProjectAPI.Data
                 booklibrary.IdBook = bookLibrary.IdBook;
                 booklibrary.IdLibrary = bookLibrary.IdLibrary;
                 _db.SaveChanges();
+            }
+        }
+        public bool IsExisting(BookLibrary bookLibrary)
+        {
+            var book = _db.BookLibraries.FirstOrDefault(p => p.IdBook == bookLibrary.IdBook && p.IdLibrary==bookLibrary.IdLibrary);
+            if(book != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

@@ -63,9 +63,9 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromBody] Reference reference)
         {
-            db.Delete(id);
+            db.Delete(reference);
             return Ok();
         }
         [HttpGet]

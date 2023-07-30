@@ -10,5 +10,7 @@ namespace GraduationProjectAPI.Infrastructure
         public void Update(Book book);
         public void Delete(int id);
         public BookDetailsDto BookDetails(int IdBook);
+        public int GetBookId(string name);
+        public List<BookWriter> GetBookWriters(int IdBook);
     }
 }

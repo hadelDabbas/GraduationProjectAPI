@@ -11,5 +11,6 @@ namespace GraduationProjectAPI.Infrastructure
         public void Delete(int id);
         public List<User> GetGroupMembers(int IdGroup);
         public List<PostDto> GroupPost(int IdGroup,int IdUser);
+        public bool ExisitInGroup(int IdUser,int IdGroup);
     }
 }

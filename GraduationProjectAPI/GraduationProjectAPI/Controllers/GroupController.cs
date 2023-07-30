@@ -118,5 +118,28 @@ namespace GraduationProjectAPI.Controllers
                 return Ok(new List<object>());
             }
         }
+        [HttpGet]
+        [ActionName("UserExisitInGroup")]
+        public IActionResult UserExisitInGroup([FromQuery] int IdUser,[FromQuery] int IdGroup)
+        {
+            if(IdUser != 0 && IdGroup != 0)
+            {
+                var data = db.ExisitInGroup(IdUser, IdGroup);
+                if(data != false)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                  //  return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+               // return BadRequest();
+                return Ok(new List<object>());
+            }
+        }
     }
 }

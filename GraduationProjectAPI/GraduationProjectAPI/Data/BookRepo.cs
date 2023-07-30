@@ -87,5 +87,34 @@ namespace GraduationProjectAPI.Data
                 return null;
             }
         }
+        public int GetBookId(string name)
+        {
+            var book = _db.Books.FirstOrDefault(p => p.BookName == name);
+            if(book != null)
+            {
+                return book.Id;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        public List<BookWriter> GetBookWriters(int IdBook)
+        {
+            var book = _db.Books.FirstOrDefault(p => p.Id == IdBook);
+            if(book != null)
+            {
+                List<BookWriter> bookWriters = _db.BookWriters.Where(p => p.IdBook == IdBook).ToList();
+                if(bookWriters.Count !=0)
+                {
+                    return bookWriters;
+                }
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

@@ -7,6 +7,6 @@ namespace GraduationProjectAPI.Infrastructure
         public IQueryable<BookLibrary> GetBookLibraries { get; }
         public void Save(BookLibrary bookLibrary);
         public void Update(BookLibrary bookLibrary);
-        public void Delete(int id);
+        public void Delete(BookLibrary bookLibrary);
     }
 }

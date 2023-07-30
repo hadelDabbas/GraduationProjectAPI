@@ -133,5 +133,23 @@ namespace GraduationProjectAPI.Data
             }
             return 0;
         }
+        public bool ExisitInGroup(int IdUser,int IdGroup)
+        {
+            var user = _db.Users.FirstOrDefault(p => p.Id == IdUser);
+            var group = _db.Groups.FirstOrDefault(p => p.Id == IdGroup);
+            if(user != null && group != null)
+            {
+                UserGroup ug = _db.UserGroups.FirstOrDefault(p => p.IdUser == IdUser && p.IdGroup == IdGroup);
+                if(ug!= null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

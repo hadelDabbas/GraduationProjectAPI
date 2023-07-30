@@ -12,10 +12,10 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Reference> GetReferences => _db.References;
 
-        public void Delete(int id)
+        public void Delete(Reference reference)
         {
-            var reference = _db.References.FirstOrDefault(p => p.Id == id);
-            if (reference != null)
+            var Reference = _db.References.FirstOrDefault(p => p.Id == reference.Id);
+            if (Reference != null)
             {
                 _db.References.Remove(reference);
                 _db.SaveChanges();
