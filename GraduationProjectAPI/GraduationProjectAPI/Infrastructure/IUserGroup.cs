@@ -7,6 +7,7 @@ namespace GraduationProjectAPI.Infrastructure
         public IQueryable<UserGroup> GetUserGroups { get; }
         public void Save(UserGroup userGroup);
         public void Update(UserGroup userGroup);
-        public void Delete(int id);
+        public void Delete(UserGroup userGroup);
+
     }
 }

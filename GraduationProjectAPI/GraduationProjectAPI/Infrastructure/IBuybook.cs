@@ -1,4 +1,5 @@
 ﻿using GraduationProjectAPI.Model;
+using GraduationProjectAPI.Dto;
 namespace GraduationProjectAPI.Infrastructure
 {
     public interface IBuybook
@@ -8,5 +9,6 @@ namespace GraduationProjectAPI.Infrastructure
         public void Save(Buybook buybook);
         public void Update(Buybook buybook);
         public void Delete(int id);
+        public List<BuyBookDto> GetAllBuys(int IdLibrary);
     }
 }

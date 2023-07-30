@@ -1,5 +1,6 @@
 ﻿using GraduationProjectAPI.Model;
 using GraduationProjectAPI.Infrastructure;
+using GraduationProjectAPI.Dto;
 namespace GraduationProjectAPI.Data
 {
     public class BuybookRepo :IBuybook
@@ -50,6 +51,48 @@ namespace GraduationProjectAPI.Data
                 BuyBook.IdUser = buyBook.IdUser;
                 BuyBook.Price = buyBook.Price;
                 _db.SaveChanges();
+            }
+        }
+        public List<BuyBookDto> GetAllBuys(int IdLibrary)
+        {
+            var library = _db.Libraries.FirstOrDefault(p => p.Id == IdLibrary);
+            List<Buybook> buybooks=new List<Buybook>();
+            List<BuyBookDto> dto = new List<BuyBookDto>();
+           List< int >idUser =new List<int>(0);
+            if (library != null)
+            {
+                List<BookLibrary> bookLibraries = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary).ToList();
+                foreach(BookLibrary e in bookLibraries)
+                {
+                   List<Buybook>  b = _db.Buybooks.Where(p => p.IdBookLibrary == e.Id).ToList();
+                    if(b.Count != 0)
+                    {
+                        buybooks.AddRange(b);
+                    }
+                }
+                if(buybooks.Count != 0)
+                foreach(Buybook e in buybooks)
+                {
+                    List<Buybook> usersbuy = _db.Buybooks.Where(p => p.IdUser == e.IdUser && !idUser.Contains(p.IdUser)).ToList();
+                        if (usersbuy.Count != 0)
+                        {
+                            BuyBookDto buyBookDto = new BuyBookDto();
+                            buyBookDto.user = _db.Users.FirstOrDefault(p => p.Id == e.IdUser);
+                            buyBookDto.userBooks = usersbuy;
+                            if( !dto.Contains(buyBookDto))
+                            dto.Add(buyBookDto);
+                             idUser.Add(buyBookDto.user.Id);
+                        }
+                }
+                if(dto.Count != 0)
+                {
+                    return dto;
+                }
+                return null;
+            }
+            else
+            {
+                return null;
             }
         }
     }

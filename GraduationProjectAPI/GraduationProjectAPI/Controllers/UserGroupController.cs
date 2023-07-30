@@ -62,9 +62,9 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromBody] UserGroup userGroup )
         {
-            db.Delete(id);
+            db.Delete(userGroup);
             return Ok();
         }
     }
