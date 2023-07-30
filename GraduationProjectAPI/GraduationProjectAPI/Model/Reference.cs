@@ -5,6 +5,7 @@
         public int Id { set; get; }
         public string referenceName { set; get; }
         public string Link { set; get; }
+        public int IdAdmin { set; get; }
         public DateTime? dateTime { set; get; }
         public int IdContent { set; get; }
         public virtual Content? Content { set; get; }

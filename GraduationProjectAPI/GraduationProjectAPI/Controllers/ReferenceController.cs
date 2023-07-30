@@ -106,5 +106,44 @@ namespace GraduationProjectAPI.Controllers
                 return Ok(new List<object>());
             }
         }
+        [HttpGet]
+        [ActionName("GetAllRefrencesAdmins")]
+        public IActionResult GGetAllRefrencesAdmins()
+        {
+            
+                var data = db.GetAllRefrencesAdmins();
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    // return NotFound();
+                    return Ok(new List<object>());
+                }
+        }
+        [HttpGet]
+        [ActionName("GetRefrencesAdmins")]
+        public IActionResult GetRefrencesAdmins([FromQuery] int idUser)
+        {
+            if (idUser != 0)
+            {
+                var data = db.GetRefrenceByAdmin(idUser);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    // return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+               // return BadRequest();
+                return Ok(new List<object>());
+            }
+        }
     }
 }

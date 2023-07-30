@@ -15,7 +15,6 @@ namespace GraduationProjectAPI.Model
         public string? Paypal { set; get; }
         public string Email { set; get; }
         public string? Phone { set; get; }
-        public string? Admin { set; get; }
         public string? Description { set; get; }
         public virtual ICollection<UserReference>? UserReference { set; get; }
         public virtual ICollection<Complaint>? Complaint { set; get; }

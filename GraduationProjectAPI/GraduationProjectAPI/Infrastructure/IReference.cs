@@ -11,5 +11,7 @@ namespace GraduationProjectAPI.Infrastructure
         public void Delete(int id);
         public List<string> GetRefrencesContent();
         public List<Reference> GetRefrenceLink(int IdContenet);
+        public List<RefrenceDto> GetAllRefrencesAdmins();
+        public List<string> GetRefrenceByAdmin(int IdUser);
     }
 }

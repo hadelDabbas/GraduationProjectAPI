@@ -127,5 +127,17 @@ namespace GraduationProjectAPI.Data
                 return null;
             }
         }
+        public List<BookType> GetLibraryBookType(int IdLibrary)
+        {
+            var library = _db.Libraries.FirstOrDefault(p => p.Id == IdLibrary);
+            if(library!= null)
+            {
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

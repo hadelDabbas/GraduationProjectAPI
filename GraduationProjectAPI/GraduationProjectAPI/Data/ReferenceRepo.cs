@@ -78,5 +78,87 @@ namespace GraduationProjectAPI.Data
             }
             return null;
         }
+        public List<RefrenceDto> GetAllRefrencesAdmins()
+        {
+            List<RefrenceDto> refrenceDtos = new List<RefrenceDto>();
+            List<Reference> references = _db.References.Where(p => p.IdAdmin != 0).ToList();
+          //  List<Content> cont = new List<Content>();
+          //  List<Content> admincont = new List<Content>();
+            List<User> admin = new List<User>();
+            if(references != null)
+            {
+               foreach(Reference e in references)
+               {
+                    User u = _db.Users.FirstOrDefault(p => p.Id == e.IdAdmin);
+                    RefrenceDto dto = new RefrenceDto();
+                    if (!admin.Contains(u))
+                    {
+                    List<string> content = GetRefrenceByAdmin(u.Id);
+                    dto.Admin = u;
+                    dto.type = content;
+                    
+                        refrenceDtos.Add(dto);
+                    }
+                    admin.Add(dto.Admin);
+                    //Content contents = _db.Contents.FirstOrDefault(p => p.Id == e.IdContent);
+                    //RefrenceDto dto = new RefrenceDto();
+                    //User u = _db.Users.FirstOrDefault(p => p.Id == e.IdAdmin );
+                    //if (!cont.Contains(contents) && !admin.Contains(u))
+                    //{
+                    //    admincont.Add(contents);
+                    //    dto.type = admincont;
+                    //    dto.Admin = u;
+                    //   refrenceDtos.Add(dto);
+                    //}
+                    //else if( admin.Contains(dto.Admin) && !cont.Contains(contents))
+                    //{
+                    //    admincont.Add(contents);
+                    //}
+                    //else if( !admin.Contains(dto.Admin) )
+                    //{
+
+                    //}
+                    //cont.Add(contents);
+                    //admin.Add(dto.Admin);
+
+                }
+               if(refrenceDtos.Count!=0)
+                {
+                    return refrenceDtos;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public List<string> GetRefrenceByAdmin(int IdUser)
+        {
+            var user = _db.Users.FirstOrDefault(p => p.Id == IdUser);
+            if (user != null)
+            {
+                List<string> contents = new List<string>();
+                List<Reference> Refcontents = _db.References.Where(p => p.IdContent != 0 && p.IdAdmin == IdUser).ToList();
+                foreach (Reference e in Refcontents)
+                {
+                    Content c = _db.Contents.FirstOrDefault(p => p.Id == e.IdContent);
+                    if (!contents.Contains(c.typeName))
+                        contents.Add(c.typeName);
+                }
+                if (contents.Count != 0)
+                {
+                    return contents;
+                }
+                else return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

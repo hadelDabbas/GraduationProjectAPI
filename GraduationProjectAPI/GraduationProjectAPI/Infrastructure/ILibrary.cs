@@ -11,5 +11,6 @@ namespace GraduationProjectAPI.Infrastructure
         public List<Book> GetBookLibrary(int IdLibrary);
         public List<Book> GetBookWriters(int IdLibrary, int IdWriter);
         public List<Book> GetBookType(int IdLibrary, int IdType);
+        public List<BookType> GetLibraryBookType(int IdLibrary);
     }
 }
