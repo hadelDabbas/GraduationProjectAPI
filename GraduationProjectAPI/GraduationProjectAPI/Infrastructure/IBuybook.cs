@@ -10,5 +10,6 @@ namespace GraduationProjectAPI.Infrastructure
         public void Update(Buybook buybook);
         public void Delete(int id);
         public List<BuyBookDto> GetAllBuys(int IdLibrary);
+        public List<BuyBookDetailsDto> GetBookDetails(int IdLibrary, int IdUser);
     }
 }

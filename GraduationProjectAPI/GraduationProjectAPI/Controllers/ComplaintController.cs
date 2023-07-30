@@ -48,7 +48,7 @@ namespace GraduationProjectAPI.Controllers
                 return Ok();
             }
         }
-        [HttpPut("{id}")]
+        [HttpPut]
         public IActionResult Put([FromBody] Complaint complaint)
         {
             if (complaint == null || complaint.Id == 0)

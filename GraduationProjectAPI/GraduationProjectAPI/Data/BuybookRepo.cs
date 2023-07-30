@@ -1,6 +1,8 @@
 ﻿using GraduationProjectAPI.Model;
 using GraduationProjectAPI.Infrastructure;
 using GraduationProjectAPI.Dto;
+using Microsoft.EntityFrameworkCore;
+
 namespace GraduationProjectAPI.Data
 {
     public class BuybookRepo :IBuybook
@@ -95,5 +97,62 @@ namespace GraduationProjectAPI.Data
                 return null;
             }
         }
+        public List<BuyBookDetailsDto> GetBookDetails(int IdLibrary,int IdUser)
+        {
+            List<BuyBookDetailsDto> buybooks = new List<BuyBookDetailsDto>();
+            var user = _db.Users.FirstOrDefault(p => p.Id == IdUser);
+            var library = _db.Libraries.FirstOrDefault(p => p.Id == IdLibrary);
+            if(user != null && library != null)
+            {
+                List<BookLibrary> bookLibraries = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary).ToList();
+                foreach(BookLibrary e in bookLibraries)
+                {
+                    List<Buybook> b = _db.Buybooks.Where(p => p.IdBookLibrary == e.Id && p.IdUser == IdUser).ToList();
+                    Book book = _db.Books.FirstOrDefault(p => p.Id == e.IdBook);
+                    if(b.Count != 0)
+                    {
+                        BuyBookDetailsDto buyBookDetailsDto = new BuyBookDetailsDto();
+                        buyBookDetailsDto.book = book;
+                        buyBookDetailsDto.buybooks = b;
+                        buybooks.Add(buyBookDetailsDto);
+                    }
+                }
+                if (buybooks.Count != 0)
+                {
+                    return buybooks;
+                }
+                else return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        //public void GetAllUserBuys(int IdUser)
+        //{
+        //    var user = _db.Users.FirstOrDefault(p => p.Id == IdUser);
+        //    List<BookLibrary> bookLibraries = new List<BookLibrary>();
+        //    List<Book> books = new List<Book>();
+        //    if (user != null)
+        //    {
+        //        List<Buybook> buybooks = _db.Buybooks.Where(p => p.IdUser == IdUser).ToList();
+        //        foreach(Buybook e in buybooks)
+        //        {
+        //             bookLibraries = _db.BookLibraries.Where(p => p.Id == e.IdBookLibrary).ToList();
+        //        }
+        //        if(bookLibraries.Count !=0)
+        //        {
+        //            foreach(BookLibrary e in bookLibraries)
+        //            {
+        //                Library l = _db.Libraries.FirstOrDefault(p => p.Id == e.IdLibrary);
+        //                //List<Book> b = _db.Books.Where(p => p.Id == e.IdBook).ToList();
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        //return null;
+        //    }
+        //}
     }
 }
