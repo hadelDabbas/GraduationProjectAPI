@@ -100,36 +100,15 @@ namespace GraduationProjectAPI.Data
                         refrenceDtos.Add(dto);
                     }
                     admin.Add(dto.Admin);
-                    //Content contents = _db.Contents.FirstOrDefault(p => p.Id == e.IdContent);
-                    //RefrenceDto dto = new RefrenceDto();
-                    //User u = _db.Users.FirstOrDefault(p => p.Id == e.IdAdmin );
-                    //if (!cont.Contains(contents) && !admin.Contains(u))
-                    //{
-                    //    admincont.Add(contents);
-                    //    dto.type = admincont;
-                    //    dto.Admin = u;
-                    //   refrenceDtos.Add(dto);
-                    //}
-                    //else if( admin.Contains(dto.Admin) && !cont.Contains(contents))
-                    //{
-                    //    admincont.Add(contents);
-                    //}
-                    //else if( !admin.Contains(dto.Admin) )
-                    //{
-
-                    //}
-                    //cont.Add(contents);
-                    //admin.Add(dto.Admin);
-
-                }
+               }
                if(refrenceDtos.Count!=0)
-                {
+               {
                     return refrenceDtos;
-                }
-                else
-                {
+               }
+               else
+               {
                     return null;
-                }
+               }
             }
             else
             {

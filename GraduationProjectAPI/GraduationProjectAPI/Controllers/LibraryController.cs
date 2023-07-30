@@ -136,5 +136,28 @@ namespace GraduationProjectAPI.Controllers
                 return Ok(new List<object>());
             }
         }
+        [HttpGet]
+        [ActionName("GetLibraryBookType")]
+        public IActionResult GetLibraryBookType([FromQuery] int IdLibrary)
+        {
+            if(IdLibrary != 0)
+            {
+                var data = db.GetLibraryBookType(IdLibrary);
+                if(data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+                //return BadRequest();
+                return Ok(new List<object>());
+            }
+        }
     }
 }

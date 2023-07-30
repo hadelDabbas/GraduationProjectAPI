@@ -129,10 +129,28 @@ namespace GraduationProjectAPI.Data
         }
         public List<BookType> GetLibraryBookType(int IdLibrary)
         {
+            List<BookType> data = new List<BookType>();
             var library = _db.Libraries.FirstOrDefault(p => p.Id == IdLibrary);
             if(library!= null)
             {
-                return null;
+                List<BookLibrary> bookLibraries = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary).ToList();
+                foreach(BookLibrary e in bookLibraries)
+                {
+                    Book b = _db.Books.FirstOrDefault(p => p.Id == e.IdBook);
+                    BookType bookType = _db.BookTypes.FirstOrDefault(p => p.Id == b.IdBookType);
+                    if(! data.Contains(bookType))
+                    {
+                        data.Add(bookType);
+                    }
+                }
+                if(data.Count != 0)
+                {
+                    return data;
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {
