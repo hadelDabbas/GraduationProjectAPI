@@ -115,5 +115,29 @@ namespace GraduationProjectAPI.Controllers
                 return Ok(new List<object>());
             }
         }
+        [HttpGet]
+        [ActionName("GetBuyBookUser")]
+        public IActionResult GetBuyBookUser([FromQuery]  int IdUser)
+        {
+            if (  IdUser != 0)
+            {
+
+                var data = db.GetAllUserBuys(IdUser);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    //  return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+                // return BadRequest();
+                return Ok(new List<object>());
+            }
+        }
     }
 }
