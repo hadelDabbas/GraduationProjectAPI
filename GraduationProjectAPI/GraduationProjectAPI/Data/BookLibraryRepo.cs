@@ -9,14 +9,16 @@ namespace GraduationProjectAPI.Data
         {
             _db = db;
         }
-        public IQueryable<BookLibrary> GetBookLibraries => _db.BookLibraries;
+        public IQueryable<BookLibrary> GetBookLibraries => _db.BookLibraries.Where(p => p.IsDeleted==false);
+        
 
         public void Delete(BookLibrary bookLibrary)
         {
-            var BookLibrary = _db.BookLibraries.FirstOrDefault(p => p.Id == bookLibrary.Id);
+            var BookLibrary = _db.BookLibraries.FirstOrDefault(p => p.Id == bookLibrary.Id && p.IsDeleted==false);
             if (BookLibrary != null)
             {
-                _db.BookLibraries.Remove(bookLibrary);
+                BookLibrary.IsDeleted = true;
+               // _db.BookLibraries.Remove(bookLibrary);
                 _db.SaveChanges();
             }
 
@@ -24,14 +26,14 @@ namespace GraduationProjectAPI.Data
         }
         public BookLibrary GetBookLibrary(int id)
         {
-            var bookLibrary = _db.BookLibraries.First(p => p.Id == id);
+            var bookLibrary = _db.BookLibraries.FirstOrDefault(p => p.Id == id && p.IsDeleted==false);
             if (bookLibrary != null)
                 return bookLibrary;
             else
                 return null;
 
         }
-        public void Save(BookLibrary bookLibrary)
+        public bool Save(BookLibrary bookLibrary)
         {
             if (bookLibrary.Id == 0)
             {
@@ -39,23 +41,25 @@ namespace GraduationProjectAPI.Data
                 {
                     _db.BookLibraries.Add(bookLibrary);
                     _db.SaveChanges();
+                    return true;
                 }
             }
-
+            return false;
         }
         public void Update(BookLibrary bookLibrary)
         {
-            var booklibrary = _db.BookLibraries.First(p => p.Id == bookLibrary.Id);
+            var booklibrary = _db.BookLibraries.FirstOrDefault(p => p.Id == bookLibrary.Id && p.IsDeleted==false);
             if (booklibrary != null)
             {
                 booklibrary.IdBook = bookLibrary.IdBook;
                 booklibrary.IdLibrary = bookLibrary.IdLibrary;
+                booklibrary.IsDeleted = bookLibrary.IsDeleted;
                 _db.SaveChanges();
             }
         }
         public bool IsExisting(BookLibrary bookLibrary)
         {
-            var book = _db.BookLibraries.FirstOrDefault(p => p.IdBook == bookLibrary.IdBook && p.IdLibrary==bookLibrary.IdLibrary);
+            var book = _db.BookLibraries.FirstOrDefault(p => p.IdBook == bookLibrary.IdBook && p.IdLibrary==bookLibrary.IdLibrary &&p.IsDeleted==false);
             if(book != null)
             {
                 return true;
@@ -67,12 +71,12 @@ namespace GraduationProjectAPI.Data
         }
         public int GetIdLibraryBook(int IdBook, int IdLibrary)
         {
-            var book = _db.Books.FirstOrDefault(p => p.Id == IdBook);
+            var book = _db.Books.FirstOrDefault(p => p.Id == IdBook && p.IsDeleted==false);
             var library = _db.Libraries.FirstOrDefault(p => p.Id == IdLibrary);
             BookLibrary bl = new BookLibrary();
             if (book != null && library != null)
             {
-                 bl = _db.BookLibraries.FirstOrDefault(p => p.IdBook == IdBook && p.IdLibrary == IdLibrary);
+                 bl = _db.BookLibraries.FirstOrDefault(p => p.IdBook == IdBook && p.IdLibrary == IdLibrary && p.IsDeleted==false);
             }
             if (bl != null)
             {

@@ -10,14 +10,15 @@ namespace GraduationProjectAPI.Data
         {
             _db = db;
         }
-        public IQueryable<Book> GetBooks => _db.Books;
+        public IQueryable<Book> GetBooks => _db.Books.Where(p=>p.IsDeleted==false);
 
-        public void Delete(int id)
+        public void Delete(Book Book)
         {
-            var book = _db.Books.FirstOrDefault(p => p.Id == id);
+            var book = _db.Books.FirstOrDefault(p => p.Id == Book.Id && p.IsDeleted==false);
             if (book != null)
             {
-                _db.Books.Remove(book);
+                book.IsDeleted = true;
+                //_db.Books.Remove(book);
                 _db.SaveChanges();
             }
 
@@ -25,34 +26,36 @@ namespace GraduationProjectAPI.Data
         }
         public Book GetBook(int id)
         {
-            var book = _db.Books.First(p => p.Id == id);
+            var book = _db.Books.FirstOrDefault(p => p.Id == id && p.IsDeleted==false);
             if (book != null)
                 return book;
             else
                 return null;
 
         }
-        public void Save(Book book)
+        public bool Save(Book book)
         {
             if (book.Id == 0)
             {
-                if (IsExisting(book))
+                if (!IsExisting(book))
                 {
                     _db.Books.Add(book);
                     _db.SaveChanges();
+                    return true;
                 }
             }
-
+            return false;
         }
         public void Update(Book book)
         {
-            var Book = _db.Books.First(p => p.Id == book.Id);
+            var Book = _db.Books.FirstOrDefault(p => p.Id == book.Id && p.IsDeleted==false);
             if (Book != null)
             {
                 Book.bookImage = book.bookImage;
                 Book.BookName = book.BookName;
                 Book.BookPrice = book.BookPrice;
                 Book.IdBookType = book.IdBookType;
+                Book.IsDeleted = book.IsDeleted;
                 _db.SaveChanges();
             }
         }
@@ -67,16 +70,16 @@ namespace GraduationProjectAPI.Data
         {
             List<string> Writers = new List<string>();
             BookDetailsDto dto = new BookDetailsDto();
-            var book = _db.Books.FirstOrDefault(p => p.Id == IdBook);
+            var book = _db.Books.FirstOrDefault(p => p.Id == IdBook && p.IsDeleted==false);
             if(book != null)
             {
-                List<BookWriter> bookWriters = _db.BookWriters.Where(p => p.IdBook == IdBook).ToList();
+                List<BookWriter> bookWriters = _db.BookWriters.Where(p => p.IdBook == IdBook && p.IsDeleted == false).ToList();
                 foreach(BookWriter e in bookWriters)
                 {
-                    Writer w = _db.Writers.FirstOrDefault(p => p.Id == e.IdWriter);
+                    Writer w = _db.Writers.FirstOrDefault(p => p.Id == e.IdWriter && p.IsDeleted == false);
                     Writers.Add(w.writerName);
                 }
-                BookType bookType = _db.BookTypes.FirstOrDefault(p => p.Id == book.IdBookType);
+                BookType bookType = _db.BookTypes.FirstOrDefault(p => p.Id == book.IdBookType && p.IsDeleted == false);
                 dto.Book = book;
                 dto.Writers = Writers;
                 dto.Type = bookType.bookType;
@@ -89,7 +92,7 @@ namespace GraduationProjectAPI.Data
         }
         public int GetBookId(string name)
         {
-            var book = _db.Books.FirstOrDefault(p => p.BookName == name);
+            var book = _db.Books.FirstOrDefault(p => p.BookName == name && p.IsDeleted == false);
             if(book != null)
             {
                 return book.Id;
@@ -101,10 +104,10 @@ namespace GraduationProjectAPI.Data
         }
         public List<BookWriter> GetBookWriters(int IdBook)
         {
-            var book = _db.Books.FirstOrDefault(p => p.Id == IdBook);
+            var book = _db.Books.FirstOrDefault(p => p.Id == IdBook && p.IsDeleted == false);
             if(book != null)
             {
-                List<BookWriter> bookWriters = _db.BookWriters.Where(p => p.IdBook == IdBook).ToList();
+                List<BookWriter> bookWriters = _db.BookWriters.Where(p => p.IdBook == IdBook && p.IsDeleted == false).ToList();
                 if(bookWriters.Count !=0)
                 {
                     return bookWriters;

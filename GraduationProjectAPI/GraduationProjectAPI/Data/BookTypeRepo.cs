@@ -9,22 +9,51 @@ namespace GraduationProjectAPI.Data
         {
             _db = db;
         }
-        public IQueryable<BookType> GetBookTypes => _db.BookTypes;
+        public IQueryable<BookType> GetBookTypes => _db.BookTypes.Where(p=>p.IsDeleted==false);
 
-        public void Delete(int id)
+        public void Delete(BookType BookType)
         {
-            var bookType= _db.BookTypes.FirstOrDefault(p => p.Id == id);
+            var bookType= _db.BookTypes.FirstOrDefault(p => p.Id == BookType.Id && p.IsDeleted==false );
             if (bookType != null)
             {
-                _db.BookTypes.Remove(bookType);
+                bookType.IsDeleted = true;
+                List<Book> books = _db.Books.Where(p => p.IdBookType == BookType.Id && p.IsDeleted == false).ToList();
+                foreach(Book e in books)
+                {
+                    DeleteBookLibraries(e.Id);
+                    DeleteBookWriter(e.Id);
+                }
+                // _db.BookTypes.Remove(bookType);
                 _db.SaveChanges();
             }
 
 
         }
+        public void DeleteBookWriter(int idBook)
+        {
+            var bookWriters = _db.BookWriters.Where(p => p.IdBook == idBook && p.IsDeleted == false);
+            if(bookWriters != null)
+            {
+                foreach(BookWriter e in bookWriters)
+                {
+                    e.IsDeleted = true;
+                }
+            }
+        }
+        public void DeleteBookLibraries(int idBook)
+        {
+            var bookLibraries = _db.BookLibraries.Where(p => p.IdBook == idBook && p.IsDeleted == false);
+            if (bookLibraries != null)
+            {
+                foreach (BookLibrary e in bookLibraries)
+                {
+                    e.IsDeleted = true;
+                }
+            }
+        }
         public BookType GetBookType(int id)
         {
-            var bookType = _db.BookTypes.First(p => p.Id == id);
+            var bookType = _db.BookTypes.FirstOrDefault(p => p.Id == id && p.IsDeleted==false);
             if (bookType != null)
                 return bookType;
             else
@@ -35,7 +64,7 @@ namespace GraduationProjectAPI.Data
         {
             if (bookType.Id == 0)
             {
-                if (IsExisting(bookType))
+                if ( !IsExisting(bookType))
                 {
                     _db.BookTypes.Add(bookType);
                     _db.SaveChanges();
@@ -45,16 +74,17 @@ namespace GraduationProjectAPI.Data
         }
         public void Update(BookType bookType)
         {
-            var BookType = _db.BookTypes.First(p => p.Id == bookType.Id);
+            var BookType = _db.BookTypes.FirstOrDefault(p => p.Id == bookType.Id && p.IsDeleted == false);
             if (BookType != null)
             {
                 BookType.bookType = bookType.bookType;
+                BookType.IsDeleted = bookType.IsDeleted;
                 _db.SaveChanges();
             }
         }
         public bool IsExisting(BookType b)
         {
-            bool data = _db.BookTypes.Any(p => p.bookType == b.bookType);
+            bool data = _db.BookTypes.Any(p => p.bookType == b.bookType && p.IsDeleted == false);
             if (data != false)
                 return true;
             else return false;

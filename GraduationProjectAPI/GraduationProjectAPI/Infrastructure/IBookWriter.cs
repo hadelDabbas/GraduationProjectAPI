@@ -5,8 +5,8 @@ namespace GraduationProjectAPI.Infrastructure
     {
         public BookWriter GetBookWriter(int id);
         public IQueryable<BookWriter> GetBookWriters { get; }
-        public void Save(BookWriter bookWriter);
+        public bool Save(BookWriter bookWriter);
         public void Update(BookWriter bookWriter);
-        public void Delete(int id);
+        public void Delete(BookWriter BookWriter);
     }
 }

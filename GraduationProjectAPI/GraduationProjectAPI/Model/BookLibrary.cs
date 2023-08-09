@@ -8,5 +8,6 @@
         public int IdLibrary { set; get; }
         public virtual Library? Library { set; get; }
         public virtual ICollection<Buybook>? Buybook { set; get; }
+        public bool IsDeleted { set; get; }
     }
 }

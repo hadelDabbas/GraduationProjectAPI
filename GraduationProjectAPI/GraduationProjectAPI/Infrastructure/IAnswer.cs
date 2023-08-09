@@ -7,6 +7,6 @@ namespace GraduationProjectAPI.Infrastructure
         public IQueryable<Answer> GetAnswers { get; }
         public void Save(Answer answer);
         public void Update(Answer answer);
-        public void Delete(int id);
+        public void Delete(Answer answer);
     }
 }

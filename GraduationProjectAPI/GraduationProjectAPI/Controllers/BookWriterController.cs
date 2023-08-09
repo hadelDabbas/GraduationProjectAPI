@@ -44,8 +44,8 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                db.Save(bookWriter);
-                return Ok();
+               var data= db.Save(bookWriter);
+                return Ok(data);
             }
         }
         [HttpPut("{id}")]
@@ -63,9 +63,9 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromQuery] BookWriter bookWriter)
         {
-            db.Delete(id);
+            db.Delete(bookWriter);
             return Ok();
         }
     }

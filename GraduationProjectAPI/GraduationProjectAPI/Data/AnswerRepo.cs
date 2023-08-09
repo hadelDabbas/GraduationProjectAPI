@@ -11,9 +11,9 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Answer> GetAnswers => _db.Answers;
 
-        public void Delete(int id)
+        public void Delete(Answer Answer)
         {
-            var answer = _db.Answers.FirstOrDefault(p => p.Id == id);
+            var answer = _db.Answers.FirstOrDefault(p => p.Id == Answer.Id);
             if (answer != null)
             {
                 _db.Answers.Remove(answer);

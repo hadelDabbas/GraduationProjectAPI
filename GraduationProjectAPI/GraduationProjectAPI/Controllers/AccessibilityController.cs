@@ -43,8 +43,10 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                db.Save(accessibility);
-                return Ok();
+               var data= db.Save(accessibility);
+                if (data != false)
+                    return Ok(data);
+                else return Ok(data);
             }
         }
         [HttpPut("{id}")]

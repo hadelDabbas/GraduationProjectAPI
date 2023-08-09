@@ -41,7 +41,7 @@ namespace GraduationProjectAPI.Data
         {
             if (accessibility.Id == 0)
             {
-                if (IsExisiting(accessibility.AccessibilityType))
+                if ( !IsExisiting(accessibility.AccessibilityType))
                 {
                     _db.Accessibilities.Add(accessibility);
                     _db.SaveChanges();
