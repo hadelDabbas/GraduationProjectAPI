@@ -8,5 +8,6 @@ namespace GraduationProjectAPI.Infrastructure
         public void Save(Test test);
         public void Update(Test test);
         public void Delete(int id);
+        public List<Content> GetTestContent();
     }
 }
