@@ -11,11 +11,23 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Post> GetPosts => _db.Posts;
 
-        public void Delete(int id)
+        public void Delete(Post Post)
         {
-            var post = _db.Posts.FirstOrDefault(p => p.Id == id);
+            var post = _db.Posts.FirstOrDefault(p => p.Id == Post.Id);
             if (post != null)
             {
+                var comment = _db.Comments.Where(p => p.IdPost == post.Id).ToList();
+                var userPost = _db.UserPosts.Where(p => p.IdPost == post.Id).ToList();
+                if(comment.Count != 0)
+                {
+                    _db.Comments.RemoveRange(comment);
+                    _db.SaveChanges();
+                }
+                if (userPost.Count != 0)
+                {
+                    _db.UserPosts.RemoveRange(userPost);
+                    _db.SaveChanges();
+                }
                 _db.Posts.Remove(post);
                 _db.SaveChanges();
             }
@@ -24,7 +36,7 @@ namespace GraduationProjectAPI.Data
         }
         public Post GetPost(int id)
         {
-            var post = _db.Posts.First(p => p.Id == id);
+            var post = _db.Posts.FirstOrDefault(p => p.Id == id);
             if (post != null)
                 return post;
             else
@@ -42,7 +54,7 @@ namespace GraduationProjectAPI.Data
         }
         public void Update(Post post)
         {
-            var Post = _db.Posts.First(p => p.Id == post.Id);
+            var Post = _db.Posts.FirstOrDefault(p => p.Id == post.Id);
             if (Post != null)
             {
                 Post.dateTime = post.dateTime;

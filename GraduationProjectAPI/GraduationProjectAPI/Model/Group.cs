@@ -12,7 +12,7 @@
         public byte[]? Image { set; get; }
         public virtual ICollection<Post>? Post { set; get; }
         public virtual ICollection<UserGroup>? UserGroup { set; get; }
-        public virtual ICollection<Group>? group { set; get; }
+        public virtual ICollection<UserAccessibility>? UserAccessibility { set; get; }
         //image
     }
 }

@@ -47,8 +47,8 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                db.Save(group);
-                return Ok();
+               var data= db.Save(group);
+                return Ok(data);
             }
         }
         [HttpPut("{id}")]
@@ -67,9 +67,9 @@ namespace GraduationProjectAPI.Controllers
         }
         [HttpDelete]
         [ActionName("Delete")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromQuery] Group group)
         {
-            db.Delete(id);
+            db.Delete(group);
             return Ok();
         }
         [HttpGet]

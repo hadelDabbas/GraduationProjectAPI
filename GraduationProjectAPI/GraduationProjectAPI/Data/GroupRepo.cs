@@ -14,16 +14,38 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Group> GetGroups => _db.Groups;
 
-        public void Delete(int id)
+        public void Delete(Group Group)
         {
-            var group = _db.Groups.FirstOrDefault(p => p.Id == id);
+            var group = _db.Groups.FirstOrDefault(p => p.Id == Group.Id);
             if (group != null)
             {
+                var userGroup = _db.UserGroups.Where(p => p.IdGroup == group.Id).ToList();
+                var post = _db.Posts.Where(p => p.IdGroup == group.Id).ToList();
+                var useraccess = _db.UserAccessibilities.Where(p => p.IdGroup == group.Id).ToList();
+                if(userGroup.Count != 0)
+                {
+                    _db.UserGroups.RemoveRange(userGroup);
+                    _db.SaveChanges();
+                }
+                if (post.Count != 0)
+                {
+                    _db.Posts.RemoveRange(post);
+                    _db.SaveChanges();
+                }
+                if (useraccess.Count != 0)
+                {
+                    _db.UserAccessibilities.RemoveRange(useraccess);
+                    _db.SaveChanges();
+                }
                 _db.Groups.Remove(group);
                 _db.SaveChanges();
             }
-
-
+            //var group = _db.Groups.FirstOrDefault(p => p.Id == Group.Id);
+            //if (group != null)
+            //{
+            //    group.IsDeleted = true;
+            //    _db.SaveChanges();
+            //}
         }
         public Group GetGroup(int id)
         {
@@ -34,17 +56,18 @@ namespace GraduationProjectAPI.Data
                 return null;
 
         }
-        public void Save(Group group)
+        public bool Save(Group group)
         {
             if (group.Id == 0)
             {
-                if (IsExiting(group.groupName))
+                if ( !IsExiting(group.groupName))
                 {
                     _db.Groups.Add(group);
                     _db.SaveChanges();
+                    return true;
                 }
             }
-
+            return false;
         }
         public void Update(Group group)
         {
@@ -55,6 +78,7 @@ namespace GraduationProjectAPI.Data
                 Group.Description = group.Description;
                 Group.Image = group.Image;
                 Group.IdContent = group.IdContent;
+                //Group.IsDeleted = group.IsDeleted;
                 _db.SaveChanges();
             }
         }

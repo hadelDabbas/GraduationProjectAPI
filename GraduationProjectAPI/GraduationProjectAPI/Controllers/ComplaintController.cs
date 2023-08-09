@@ -63,9 +63,9 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromQuery] Complaint complaint)
         {
-            db.Delete(id);
+            db.Delete(complaint);
             return Ok();
         }
         [HttpGet]

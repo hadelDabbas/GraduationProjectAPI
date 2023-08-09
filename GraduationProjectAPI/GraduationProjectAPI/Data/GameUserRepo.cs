@@ -11,9 +11,9 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<GameUser> GetGameUsers => _db.GameUsers;
 
-        public void Delete(int id)
+        public void Delete(GameUser GameUser)
         {
-            var gameUser = _db.GameUsers.FirstOrDefault(p => p.Id == id);
+            var gameUser = _db.GameUsers.FirstOrDefault(p => p.Id == GameUser.Id);
             if (gameUser != null)
             {
                 _db.GameUsers.Remove(gameUser);
@@ -24,7 +24,7 @@ namespace GraduationProjectAPI.Data
         }
         public GameUser GetGameUser(int id)
         {
-            var gameUser = _db.GameUsers.First(p => p.Id == id);
+            var gameUser = _db.GameUsers.FirstOrDefault(p => p.Id == id);
             if (gameUser != null)
                 return gameUser;
             else

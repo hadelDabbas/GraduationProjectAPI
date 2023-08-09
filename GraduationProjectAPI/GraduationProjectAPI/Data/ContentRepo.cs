@@ -11,16 +11,38 @@ using GraduationProjectAPI.Model;
         }
         public IQueryable<Content> GetContents => _db.Contents;
 
-        public void Delete(int id)
+        public void Delete(Content content)
         {
-            var type = _db.Contents.FirstOrDefault(p => p.Id == id);
+            var type = _db.Contents.FirstOrDefault(p => p.Id == content.Id);
             if (type != null)
             {
+                var refre = _db.References.Where(p => p.IdContent == type.Id).ToList();
+                var test = _db.Tests.Where(p => p.IdContent == type.Id).ToList();
+                var post = _db.Posts.Where(p => p.IdContent == type.Id).ToList();
+                var group = _db.Groups.Where(p => p.IdContent == type.Id).ToList();
+                if(refre.Count != 0)
+                {
+                    _db.References.RemoveRange(refre);
+                    _db.SaveChanges();
+                }
+                if (test.Count != 0)
+                {
+                    _db.Tests.RemoveRange(test);
+                    _db.SaveChanges();
+                }
+                if (post.Count != 0)
+                {
+                    _db.Posts.RemoveRange(post);
+                    _db.SaveChanges();
+                }
+                if (group.Count != 0)
+                {
+                    _db.Groups.RemoveRange(group);
+                    _db.SaveChanges();
+                }
                 _db.Contents.Remove(type);
                 _db.SaveChanges();
             }
-
-
         }
         public Content GetContent(int id)
         {
@@ -31,15 +53,20 @@ using GraduationProjectAPI.Model;
                 return null;
 
         }
-        public void Save(Content type)
+        public bool Save(Content type)
         {
-            var data = _db.Contents.Where(p => p.typeName == type.typeName);
-            if (data != null)
+            //var data = _db.Contents.Where(p => p.typeName == type.typeName);
+            if (type.Id != 0)
             {
-                _db.Contents.Add(type);
-                _db.SaveChanges();
-            }
+                if (!IsExisting(type))
+                {
+                    _db.Contents.Add(type);
+                    _db.SaveChanges();
+                    return true;
+                }
 
+            }
+            return false;
         }
         public void Update(Content type)
         {
@@ -49,6 +76,15 @@ using GraduationProjectAPI.Model;
                 Type.typeName = type.typeName;
                 _db.SaveChanges();
             }
+        }
+        public bool IsExisting(Content content)
+        {
+            var data = _db.Contents.Any(p => p.typeName == content.typeName);
+            if (data != true)
+            {
+                return false;
+            }
+            else return true;
         }
     }
    }

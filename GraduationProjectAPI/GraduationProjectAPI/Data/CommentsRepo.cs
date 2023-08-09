@@ -14,9 +14,9 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Comments> GetComments => _db.Comments;
 
-        public void Delete(int id)
+        public void Delete(Comments Comment)
         {
-            var commet = _db.Comments.FirstOrDefault(p => p.Id == id);
+            var commet = _db.Comments.FirstOrDefault(p => p.Id == Comment.Id);
             if (commet != null)
             {
                 _db.Comments.Remove(commet);
@@ -27,7 +27,7 @@ namespace GraduationProjectAPI.Data
         }
         public Comments GetComment(int id)
         {
-            var comment = _db.Comments.First(p => p.Id == id);
+            var comment = _db.Comments.FirstOrDefault(p => p.Id == id);
             if (comment != null)
                 return comment;
             else
@@ -50,6 +50,7 @@ namespace GraduationProjectAPI.Data
             {
                 Comment.comment = comment.comment;
                 Comment.IdPost = comment.IdPost;
+                Comment.IdUser = comment.IdUser;
                 _db.SaveChanges();
             }
         }

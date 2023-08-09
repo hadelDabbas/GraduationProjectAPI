@@ -112,5 +112,17 @@ namespace GraduationProjectAPI.Data
             //    return null;
             //}
         }
+        public int GetTestId(string test)
+        {
+            var Test = _db.Tests.FirstOrDefault(p => p.test == test);
+            if(Test != null)
+            {
+                return Test.Id;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

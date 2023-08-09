@@ -11,9 +11,9 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Complaint> GetComplaints => _db.Complaints;
 
-        public void Delete(int id)
+        public void Delete(Complaint Complaint)
         {
-            var complaint = _db.Complaints.FirstOrDefault(p => p.Id == id);
+            var complaint = _db.Complaints.FirstOrDefault(p => p.Id == Complaint.Id);
             if (complaint != null)
             {
                 _db.Complaints.Remove(complaint);
@@ -24,7 +24,7 @@ namespace GraduationProjectAPI.Data
         }
         public Complaint GetComplaint(int id)
         {
-            var complaint = _db.Complaints.First(p => p.Id == id);
+            var complaint = _db.Complaints.FirstOrDefault(p => p.Id == id);
             if (complaint != null)
                 return complaint;
             else
@@ -42,7 +42,7 @@ namespace GraduationProjectAPI.Data
         }
         public void Update(Complaint complaint)
         {
-            var Complaint = _db.Complaints.First(p => p.Id == complaint.Id);
+            var Complaint = _db.Complaints.FirstOrDefault(p => p.Id == complaint.Id);
             if (Complaint != null)
             {
                 Complaint.complaint = complaint.complaint;

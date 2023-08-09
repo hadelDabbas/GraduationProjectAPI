@@ -11,11 +11,17 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Game> GetGames => _db.Games;
 
-        public void Delete(int id)
+        public void Delete(Game Game)
         {
-            var game = _db.Games.FirstOrDefault(p => p.Id == id);
+            var game = _db.Games.FirstOrDefault(p => p.Id == Game.Id);
             if (game != null)
             {
+                var gameuser = _db.GameUsers.Where(p => p.IdGame == game.Id).ToList();
+                if(gameuser.Count != 0)
+                {
+                    _db.GameUsers.RemoveRange(gameuser);
+                    _db.SaveChanges();
+                }
                 _db.Games.Remove(game);
                 _db.SaveChanges();
             }
@@ -24,21 +30,25 @@ namespace GraduationProjectAPI.Data
         }
         public Game GetGame(int id)
         {
-            var game = _db.Games.First(p => p.Id == id);
+            var game = _db.Games.FirstOrDefault(p => p.Id == id);
             if (game != null)
                 return game;
             else
                 return null;
 
         }
-        public void Save(Game game)
+        public bool Save(Game game)
         {
             if (game.Id == 0)
             {
-                _db.Games.Add(game);
-                _db.SaveChanges();
+                if (!IsExisting(game))
+                {
+                    _db.Games.Add(game);
+                    _db.SaveChanges();
+                    return true;
+                }
             }
-
+            return false;
         }
         public void Update(Game game)
         {
@@ -49,6 +59,15 @@ namespace GraduationProjectAPI.Data
                 Game.GameName= game.GameName;
                 _db.SaveChanges();
             }
+        }
+        public bool IsExisting(Game game)
+        {
+            var data = _db.Games.Any(p => p.GameName == game.GameName);
+            if (data != true)
+            {
+                return false;
+            }
+            else return false;
         }
     }
 }

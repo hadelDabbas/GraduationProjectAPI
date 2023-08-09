@@ -8,7 +8,7 @@ namespace GraduationProjectAPI.Infrastructure
         public IQueryable<Comments> GetComments { get; }
         public void Save(Comments comment);
         public void Update(Comments comment);
-        public void Delete(int id);
+        public void Delete(Comments comment);
         public List<Comments> PostComments(int IdPost);
         public List<CommentDto> commentDtos(int IdPost);
     }

@@ -9,6 +9,7 @@ namespace GraduationProjectAPI.Infrastructure
         public void Save(Test test);
         public void Update(Test test);
         public void Delete(int id);
+        public int GetTestId(string test);
         public List<Content> GetTestContent();
         public List<TestDto> GetTestsForContent(int IdContent);
     }

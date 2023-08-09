@@ -5,8 +5,8 @@ namespace GraduationProjectAPI.Infrastructure
     {
         public Content GetContent(int id);
         public IQueryable<Content> GetContents { get; }
-        public void Save(Content content);
+        public bool Save(Content content);
         public void Update(Content content);
-        public void Delete(int id);
+        public void Delete(Content content);
     }
 }

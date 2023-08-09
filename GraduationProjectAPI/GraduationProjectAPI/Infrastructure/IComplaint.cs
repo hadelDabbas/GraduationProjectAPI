@@ -7,7 +7,7 @@ namespace GraduationProjectAPI.Infrastructure
         public IQueryable<Complaint> GetComplaints { get; }
         public void Save(Complaint complaint);
         public void Update(Complaint complaint);
-        public void Delete(int id);
+        public void Delete(Complaint complaint);
         public List<Complaint> UserComplaint(int IdUser);
     }
 }

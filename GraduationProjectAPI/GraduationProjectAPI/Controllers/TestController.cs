@@ -106,5 +106,28 @@ namespace GraduationProjectAPI.Controllers
                 return Ok(new List<object>());
             }
         }
+        [HttpGet]
+        [ActionName("GetTestId")]
+        public IActionResult GetTestId([FromQuery] string test)
+        {
+            if (test != null)
+            {
+                var data = db.GetTestId(test);
+                if(data != 0)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    //  return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+               // return BadRequest();
+                return Ok(new List<object>());
+            }
+        }
     }
 }

@@ -7,6 +7,6 @@ namespace GraduationProjectAPI.Infrastructure
         public IQueryable<GameUser> GetGameUsers { get; }
         public void Save(GameUser gameUser);
         public void Update(GameUser gameUser);
-        public void Delete(int id);
+        public void Delete(GameUser gameUser);
     }
 }

@@ -6,9 +6,9 @@ namespace GraduationProjectAPI.Infrastructure
     {
         public Group GetGroup(int id);
         public IQueryable<Group> GetGroups { get; }
-        public void Save(Group group);
+        public bool Save(Group group);
         public void Update(Group group);
-        public void Delete(int id);
+        public void Delete(Group group);
         public List<User> GetGroupMembers(int IdGroup);
         public List<PostDto> GroupPost(int IdGroup,int IdUser);
         public bool ExisitInGroup(int IdUser,int IdGroup);

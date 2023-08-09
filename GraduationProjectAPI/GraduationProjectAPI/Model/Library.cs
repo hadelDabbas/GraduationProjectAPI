@@ -9,6 +9,6 @@
         public bool IsDeleted { set; get; }
     //    public virtual  ICollection<Buybook>? Buybook { set; get; }
         public virtual ICollection<BookLibrary>? BookLibrary { set; get; }
-        public virtual ICollection<Library>? library { set; get; }
+        public virtual ICollection<UserAccessibility>? UserAccessibility { set; get; }
     }
 }

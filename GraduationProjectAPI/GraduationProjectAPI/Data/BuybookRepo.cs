@@ -14,9 +14,9 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Buybook> GetBuybooks => _db.Buybooks;
 
-        public void Delete(int id)
+        public void Delete(Buybook Buybook)
         {
-            var buyBook = _db.Buybooks.FirstOrDefault(p => p.Id == id);
+            var buyBook = _db.Buybooks.FirstOrDefault(p => p.Id == Buybook.Id);
             if (buyBook != null)
             {
                 _db.Buybooks.Remove(buyBook);
@@ -27,7 +27,7 @@ namespace GraduationProjectAPI.Data
         }
         public Buybook GetBuybook(int id)
         {
-            var buyBook = _db.Buybooks.First(p => p.Id == id);
+            var buyBook = _db.Buybooks.FirstOrDefault(p => p.Id == id);
             if (buyBook != null)
                 return buyBook;
             else
@@ -45,13 +45,14 @@ namespace GraduationProjectAPI.Data
         }
         public void Update(Buybook buyBook)
         {
-            var BuyBook = _db.Buybooks.First(p => p.Id == buyBook.Id);
+            var BuyBook = _db.Buybooks.FirstOrDefault(p => p.Id == buyBook.Id);
             if (BuyBook != null)
             {
                 BuyBook.Address = buyBook.Address;
                 BuyBook.IdBookLibrary = buyBook.IdBookLibrary;
                 BuyBook.IdUser = buyBook.IdUser;
                 BuyBook.Price = buyBook.Price;
+                BuyBook.Count = buyBook.Count;
                 _db.SaveChanges();
             }
         }
@@ -63,7 +64,7 @@ namespace GraduationProjectAPI.Data
            List< int >idUser =new List<int>(0);
             if (library != null)
             {
-                List<BookLibrary> bookLibraries = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary).ToList();
+                List<BookLibrary> bookLibraries = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary && p.IsDeleted == false).ToList();
                 foreach(BookLibrary e in bookLibraries)
                 {
                    List<Buybook>  b = _db.Buybooks.Where(p => p.IdBookLibrary == e.Id).ToList();
@@ -104,11 +105,11 @@ namespace GraduationProjectAPI.Data
             var library = _db.Libraries.FirstOrDefault(p => p.Id == IdLibrary);
             if(user != null && library != null)
             {
-                List<BookLibrary> bookLibraries = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary).ToList();
+                List<BookLibrary> bookLibraries = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary && p.IsDeleted==false).ToList();
                 foreach(BookLibrary e in bookLibraries)
                 {
                     List<Buybook> b = _db.Buybooks.Where(p => p.IdBookLibrary == e.Id && p.IdUser == IdUser).ToList();
-                    Book book = _db.Books.FirstOrDefault(p => p.Id == e.IdBook);
+                    Book book = _db.Books.FirstOrDefault(p => p.Id == e.IdBook && p.IsDeleted==false);
                     if(b.Count != 0)
                     {
                         BuyBookDetailsDto buyBookDetailsDto = new BuyBookDetailsDto();
@@ -140,7 +141,7 @@ namespace GraduationProjectAPI.Data
                 List<Buybook> buybooks = _db.Buybooks.Where(p => p.IdUser == IdUser).ToList();
                 foreach (Buybook e in buybooks)
                 {
-                    List<BookLibrary> b = _db.BookLibraries.Where(p => p.Id == e.IdBookLibrary).ToList();
+                    List<BookLibrary> b = _db.BookLibraries.Where(p => p.Id == e.IdBookLibrary && p.IsDeleted==false).ToList();
                     if(b.Count != 0)
                     {
                         bookLibraries.AddRange(b);
@@ -152,7 +153,7 @@ namespace GraduationProjectAPI.Data
                     {
                         BuyBookUserDto dto = new BuyBookUserDto();
                         dto.library = _db.Libraries.FirstOrDefault(p => p.Id == e.IdLibrary);
-                        dto.book = _db.Books.FirstOrDefault(p => p.Id == e.IdBook);
+                        dto.book = _db.Books.FirstOrDefault(p => p.Id == e.IdBook && p.IsDeleted==false);
                         dto.userBuyBook = _db.Buybooks.Where(p => p.IdBookLibrary == e.Id).ToList();
                         if(!libraries.Contains(dto.library))
                         {

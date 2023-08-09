@@ -11,9 +11,9 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Follow> GetFollows => _db.Follows;
 
-        public void Delete(int id)
+        public void Delete(Follow Follow)
         {
-            var follow = _db.Follows.FirstOrDefault(p => p.Id == id);
+            var follow = _db.Follows.FirstOrDefault(p => p.Id == Follow.Id);
             if (follow != null)
             {
                 _db.Follows.Remove(follow);
@@ -24,21 +24,26 @@ namespace GraduationProjectAPI.Data
         }
         public Follow GetFollow(int id)
         {
-            var follow = _db.Follows.First(p => p.Id == id);
+            var follow = _db.Follows.FirstOrDefault(p => p.Id == id);
             if (follow != null)
                 return follow;
             else
                 return null;
 
         }
-        public void Save(Follow follow)
+        public bool Save(Follow follow)
         {
             if (follow.Id == 0)
             {
-                _db.Follows.Add(follow);
-                _db.SaveChanges();
+                if(!IsExisting(follow))
+                {
+                    _db.Follows.Add(follow);
+                    _db.SaveChanges();
+                    return true;
+                }
+              
             }
-
+            return false;
         }
         public void Update(Follow follow)
         {
@@ -48,6 +53,18 @@ namespace GraduationProjectAPI.Data
                 Follow.followedId = follow.followedId;
                 Follow.followId = follow.followId;
                 _db.SaveChanges();
+            }
+        }
+        public bool IsExisting(Follow follow)
+        {
+            var data = _db.Follows.Any(p => p.followedId == follow.followedId && p.followId == follow.followId);
+            if(data != true)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
     }
