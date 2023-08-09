@@ -65,5 +65,23 @@ namespace GraduationProjectAPI.Data
                 return false;
             }
         }
+        public int GetIdLibraryBook(int IdBook, int IdLibrary)
+        {
+            var book = _db.Books.FirstOrDefault(p => p.Id == IdBook);
+            var library = _db.Libraries.FirstOrDefault(p => p.Id == IdLibrary);
+            BookLibrary bl = new BookLibrary();
+            if (book != null && library != null)
+            {
+                 bl = _db.BookLibraries.FirstOrDefault(p => p.IdBook == IdBook && p.IdLibrary == IdLibrary);
+            }
+            if (bl != null)
+            {
+                return bl.Id;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

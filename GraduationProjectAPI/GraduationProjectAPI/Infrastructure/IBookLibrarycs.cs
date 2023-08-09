@@ -8,5 +8,6 @@ namespace GraduationProjectAPI.Infrastructure
         public void Save(BookLibrary bookLibrary);
         public void Update(BookLibrary bookLibrary);
         public void Delete(BookLibrary bookLibrary);
+        public int GetIdLibraryBook(int IdBook, int IdLibrary);
     }
 }
