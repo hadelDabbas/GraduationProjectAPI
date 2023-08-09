@@ -37,16 +37,18 @@ namespace GraduationProjectAPI.Data
                 return null;
 
         }
-        public void Save(Accessibility accessibility)
+        public bool Save(Accessibility accessibility)
         {
             if (accessibility.Id == 0)
             {
-
-                _db.Accessibilities.Add(accessibility);
-                _db.SaveChanges();
-
+                if (IsExisiting(accessibility.AccessibilityType))
+                {
+                    _db.Accessibilities.Add(accessibility);
+                    _db.SaveChanges();
+                }
+                return true;
             }
-
+            return false;
         }
         public void Update(Accessibility accessibility)
         {
@@ -70,6 +72,18 @@ namespace GraduationProjectAPI.Data
                     return true;
                 }
                 else  return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool IsExisiting(string name)
+        {
+            var data = _db.Accessibilities.FirstOrDefault(p => p.AccessibilityType == name);
+            if(data != null)
+            {
+                return true;
             }
             else
             {
