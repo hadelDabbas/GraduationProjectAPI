@@ -1,5 +1,6 @@
 ﻿using GraduationProjectAPI.Infrastructure;
 using GraduationProjectAPI.Model;
+using GraduationProjectAPI.Dto;
 namespace GraduationProjectAPI.Data
 {
     public class TestRepo:ITest
@@ -70,6 +71,46 @@ namespace GraduationProjectAPI.Data
             {
                 return null;
             }
+        }
+        public List<TestDto> GetTestsForContent(int IdContent)
+        {
+            Content c = _db.Contents.FirstOrDefault(p => p.Id == IdContent);
+            List<Test> tests = new List<Test>();
+            List<TestDto> dto = new List<TestDto>();
+            if (c != null)
+            {
+                 tests = _db.Tests.Where(p => p.IdContent == c.Id).ToList();
+            }
+            foreach(Test e in tests)
+            {
+                List<Answer> answers = _db.Answers.Where(p => p.IdTest == e.Id).ToList();
+                if(answers.Count != 0)
+                {
+                    TestDto testDto = new TestDto();
+                    testDto.Test = e;
+                    testDto.answers = answers;
+                    if( !dto.Contains(testDto))
+                    {
+                        dto.Add(testDto);
+                    }
+                }
+            }
+            if(dto.Count !=0)
+            {
+                return dto;
+            }
+            else
+            {
+                return null;
+            }
+            //if(tests.Count != 0)
+            //{
+            //    return tests;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
         }
     }
 }

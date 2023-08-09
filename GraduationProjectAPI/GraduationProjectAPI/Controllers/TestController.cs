@@ -83,5 +83,28 @@ namespace GraduationProjectAPI.Controllers
                // return NotFound();
             }
         }
+        [HttpGet]
+        [ActionName("GetTestByContent")]
+        public IActionResult GetTestByContent([FromQuery] int IdContent)
+        {
+            if(IdContent != 0)
+            {
+                var data = db.GetTestsForContent(IdContent);
+                if(data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                   // return NotFound();
+                 return Ok(new List<object>());
+                }
+            }
+            else
+            {
+                //return BadRequest();
+                return Ok(new List<object>());
+            }
+        }
     }
 }
