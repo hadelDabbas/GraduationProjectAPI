@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 namespace GraduationProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AccessibilityController : Controller
     {
@@ -62,10 +62,33 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromBody] Accessibility accessibility)
         {
-            db.Delete(id);
+            db.Delete(accessibility);
             return Ok();
+        }
+        [HttpGet]
+        [ActionName("DeleteUserAccessibility")]
+        public IActionResult DeleteUserAccessibility([FromQuery] int IdUser,[FromQuery] string access)
+        {
+            if(IdUser != 0 && access != null)
+            {
+                var data = db.DeleteUserAccessibility(IdUser, access);
+                if(data != false)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return Ok(new List<object>());
+                  //  return NotFound();
+                }
+            }
+            else
+            {
+                return Ok(new List<object>());
+              //  return BadRequest();
+            }
         }
     }
 }

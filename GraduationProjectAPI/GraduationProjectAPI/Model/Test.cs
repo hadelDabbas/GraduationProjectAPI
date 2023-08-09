@@ -8,5 +8,6 @@
         public int IdAdmin { set; get; }
         public virtual Content? Content { set; get; }
         public virtual ICollection<Answer>? Answer { set; get; }
+        public virtual ICollection<UserAccessibility>? UserAccessibility { set; get; }
     }
 }

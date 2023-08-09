@@ -12,5 +12,9 @@
         public virtual Group? Group { set; get; }
         public int? IdLibrary { set; get; }
         public virtual Library? Library { set; get; }
+        public int? IdTest { set; get; }
+        public virtual Test? Test { set; get; }
+        public int? IdReference { set; get; }
+        public virtual Reference? Reference { set; get; }
     }
 }

@@ -10,5 +10,6 @@
         public int IdContent { set; get; }
         public virtual Content? Content { set; get; }
         public virtual ICollection<UserReference>? UserReference { set; get; }
+        public virtual ICollection<UserAccessibility>? UserAccessibility { set; get; }
     }
 }

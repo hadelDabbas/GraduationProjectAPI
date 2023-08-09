@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserAccessibilityController : Controller
     {
@@ -67,6 +67,29 @@ namespace GraduationProjectAPI.Controllers
         {
             db.Delete(id);
             return Ok();
+        }
+        [HttpGet]
+        [ActionName("GetUserAccessibilites")]
+        public IActionResult GetUserAccessibilites([FromQuery] int IdUser)
+        {
+            if(IdUser != 0)
+            {
+                var data = db.getUserAccessibilities(IdUser);
+                if(data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return Ok(new List<object>());
+                 //   return NotFound();
+                }
+            }
+            else
+            {
+               // return BadRequest();
+                return Ok(new List<object>());
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GraduationProjectAPI.Model;
+﻿using GraduationProjectAPI.Dto;
+using GraduationProjectAPI.Model;
 namespace GraduationProjectAPI.Infrastructure
 {
     public interface IUserAccessibility
@@ -8,5 +9,6 @@ namespace GraduationProjectAPI.Infrastructure
         public void Save(UserAccessibility userAccessibility);
         public void Update(UserAccessibility userAccessibility);
         public void Delete(int id);
+        public List<AccessibilityDto> getUserAccessibilities(int IdUser);
     }
 }

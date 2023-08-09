@@ -11,11 +11,17 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Accessibility> GetAccessibilties => _db.Accessibilities;
 
-        public void Delete(int id)
+        public void Delete(Accessibility Accessibility)
         {
-            var accessibility = _db.Accessibilities.FirstOrDefault(p => p.Id == id);
+            var accessibility = _db.Accessibilities.FirstOrDefault(p => p.Id == Accessibility.Id);
             if (accessibility != null)
             {
+                List<UserAccessibility> UserAccessibility = _db.UserAccessibilities.Where(p => p.IdAccessibility == accessibility.Id).ToList();
+                if(UserAccessibility != null)
+                {
+                    _db.UserAccessibilities.RemoveRange(UserAccessibility);
+                    _db.SaveChanges();
+                }
                 _db.Accessibilities.Remove(accessibility);
                 _db.SaveChanges();
             }
@@ -49,6 +55,25 @@ namespace GraduationProjectAPI.Data
             {
                 Accessibility.AccessibilityType = accessibility.AccessibilityType;
                 _db.SaveChanges();
+            }
+        }
+        public bool DeleteUserAccessibility(int IdUser, string access)
+        {
+            var Accessibility = _db.Accessibilities.FirstOrDefault(p => p.AccessibilityType == access);
+            if (Accessibility != null)
+            {
+                var data = _db.UserAccessibilities.FirstOrDefault(p => p.IdUser == IdUser && p.IdAccessibility == Accessibility.Id);
+                if (data != null)
+                {
+                    _db.UserAccessibilities.Remove(data);
+                    _db.SaveChanges();
+                    return true;
+                }
+                else  return false;
+            }
+            else
+            {
+                return false;
             }
         }
     }

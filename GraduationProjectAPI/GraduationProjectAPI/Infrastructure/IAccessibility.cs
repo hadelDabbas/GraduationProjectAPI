@@ -7,6 +7,7 @@ namespace GraduationProjectAPI.Infrastructure
         public IQueryable<Accessibility> GetAccessibilties { get; }
         public void Save(Accessibility accessibility);
         public void Update(Accessibility accessibility);
-        public void Delete(int id);
+        public void Delete(Accessibility accessibility);
+        public bool DeleteUserAccessibility(int IdUser, string access);
     }
 }
