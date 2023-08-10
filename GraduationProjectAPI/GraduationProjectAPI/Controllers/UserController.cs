@@ -32,17 +32,8 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                bool data = db.IsExisting(user.Email,user.UserName);
-                if (data == false)
-                {
-                    db.Save(user);
-                    return Ok();
-                }
-                else
-                {
-                   // return NotFound(); 
-                    return Ok(new List<object>());//return NotFound();
-                }
+               var data= db.Save(user);
+                 return Ok(data);
             }
         }
         [HttpPut("{id}")]
@@ -60,9 +51,9 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromQuery] User user)
         {
-            db.Delete(id);
+            db.Delete(user);
             return Ok();
         }
         [HttpGet]

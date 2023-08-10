@@ -5,8 +5,8 @@ namespace GraduationProjectAPI.Infrastructure
     {
         public UserPost GetUserPost(int id);
         public IQueryable<UserPost> GetUserPosts { get; }
-        public void Save(UserPost userPost);
+        public bool Save(UserPost userPost);
         public void Update(UserPost userPost);
-        public void Delete(int id);
+        public void Delete(UserPost userPost);
     }
 }

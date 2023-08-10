@@ -11,9 +11,9 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<UserPost> GetUserPosts => _db.UserPosts;
 
-        public void Delete(int id)
+        public void Delete(UserPost UserPost)
         {
-            var userPost = _db.UserPosts.FirstOrDefault(p => p.Id == id);
+            var userPost = _db.UserPosts.FirstOrDefault(p => p.Id == UserPost.Id);
             if (userPost != null)
             {
                 _db.UserPosts.Remove(userPost);
@@ -24,21 +24,25 @@ namespace GraduationProjectAPI.Data
         }
         public UserPost GetUserPost(int id)
         {
-            var userPost = _db.UserPosts.First(p => p.Id == id);
+            var userPost = _db.UserPosts.FirstOrDefault(p => p.Id == id);
             if (userPost != null)
                 return userPost;
             else
                 return null;
 
         }
-        public void Save(UserPost userPost)
+        public bool Save(UserPost userPost)
         {
             if (userPost.Id == 0)
             {
-                _db.UserPosts.Add(userPost);
-                _db.SaveChanges();
+                if (!IsExisting(userPost))
+                {
+                    _db.UserPosts.Add(userPost);
+                    _db.SaveChanges();
+                    return true;
+                }
             }
-
+            return false;
         }
         public void Update(UserPost userPost)
         {
@@ -50,6 +54,15 @@ namespace GraduationProjectAPI.Data
                 UserPost.Interaction = userPost.Interaction;
                 _db.SaveChanges();
             }
+        }
+        public bool IsExisting(UserPost userPost)
+        {
+            var data = _db.UserPosts.Any(p => p.IdUser == userPost.IdUser && p.IdPost == userPost.IdPost);
+            if (data != false)
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

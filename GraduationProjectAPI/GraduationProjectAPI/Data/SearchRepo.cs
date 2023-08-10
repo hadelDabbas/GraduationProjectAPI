@@ -23,8 +23,8 @@ namespace GraduationProjectAPI.Data
             List<object> library = _db.Libraries.Where(p => p.libraryName.Contains(search)).ToList<object>();
             List<object> complaint = _db.Complaints.Where(p => p.complaint.Contains(search) && p.IdUser==IdUser).ToList<object>();
             List<object> refreance = _db.References.Where(p => p.referenceName.Contains(search)).ToList<object>();
-            List<Book> book = _db.Books.Where(p => p.BookName.Contains(search)).ToList();
-            List<Writer> writer = _db.Writers.Where(p => p.writerName.Contains(search)).ToList();
+            List<Book> book = _db.Books.Where(p => p.BookName.Contains(search) && p.IsDeleted==false).ToList();
+            List<Writer> writer = _db.Writers.Where(p => p.writerName.Contains(search) && p.IsDeleted==false).ToList();
             if(user.Count != 0)
             {
                 SearchDto dto = new SearchDto();
@@ -74,7 +74,7 @@ namespace GraduationProjectAPI.Data
                 List<object> librarys = new List<object>();
                 foreach (Book e in book)
                 {
-                   List< BookLibrary> l = _db.BookLibraries.Where(p => p.IdBook == e.Id).ToList();
+                   List< BookLibrary> l = _db.BookLibraries.Where(p => p.IdBook == e.Id && p.IsDeleted==false).ToList();
                     foreach (BookLibrary x in l)
                     {
                         Library c = _db.Libraries.Where(p => p.Id == x.IdLibrary).FirstOrDefault();
@@ -96,10 +96,10 @@ namespace GraduationProjectAPI.Data
                 List<object> librarys = new List<object>();
                 foreach (Writer e in writer)
                 {
-                   List<BookWriter> b = _db.BookWriters.Where(p => p.IdWriter == e.Id).ToList();
+                   List<BookWriter> b = _db.BookWriters.Where(p => p.IdWriter == e.Id && p.IsDeleted==false).ToList();
                     foreach (BookWriter x in b)
                     {
-                        List<BookLibrary> c = _db.BookLibraries.Where(p => p.IdBook == x.IdBook).ToList();
+                        List<BookLibrary> c = _db.BookLibraries.Where(p => p.IdBook == x.IdBook && p.IsDeleted == false).ToList();
                         foreach (BookLibrary v in c)
                         {
                             Library l = _db.Libraries.Where(p => p.Id == v.IdLibrary).FirstOrDefault();
@@ -194,12 +194,12 @@ namespace GraduationProjectAPI.Data
         {
             List<object> library = new List<object>();
             List<Library> list = new List<Library>();
-            List<Book> book = _db.Books.Where(p => p.BookName.Contains(search)).ToList();
+            List<Book> book = _db.Books.Where(p => p.BookName.Contains(search) && p.IsDeleted == false).ToList();
             if (book.Count != 0)
             {
                 foreach (Book e in book)
                 {
-                    List<BookLibrary> l = _db.BookLibraries.Where(p => p.IdBook == e.Id).ToList();
+                    List<BookLibrary> l = _db.BookLibraries.Where(p => p.IdBook == e.Id && p.IsDeleted == false).ToList();
                     foreach (BookLibrary x in l)
                     {
                         Library c = _db.Libraries.Where(p => p.Id == x.IdLibrary).FirstOrDefault();
@@ -221,15 +221,15 @@ namespace GraduationProjectAPI.Data
         {
             List<object> library = new List<object>();
             List<Library> list = new List<Library>();
-            List<Writer> bookWriters = _db.Writers.Where(p => p.writerName.Contains(search)).ToList();
+            List<Writer> bookWriters = _db.Writers.Where(p => p.writerName.Contains(search) && p.IsDeleted == false).ToList();
             if (bookWriters.Count != 0)
             {
                 foreach (Writer e in bookWriters)
                 {
-                    List<BookWriter> b = _db.BookWriters.Where(p => p.IdWriter == e.Id).ToList();
+                    List<BookWriter> b = _db.BookWriters.Where(p => p.IdWriter == e.Id && p.IsDeleted == false).ToList();
                     foreach (BookWriter x in b)
                     {
-                        List<BookLibrary> c = _db.BookLibraries.Where(p => p.IdBook == x.IdBook).ToList();
+                        List<BookLibrary> c = _db.BookLibraries.Where(p => p.IdBook == x.IdBook && p.IsDeleted == false).ToList();
                         foreach (BookLibrary v in c)
                         {
                             Library l = _db.Libraries.Where(p => p.Id == v.IdLibrary).FirstOrDefault();

@@ -5,9 +5,9 @@ namespace GraduationProjectAPI.Infrastructure
     {
         public Writer GetWriter(int id);
         public IQueryable<Writer> GetWriters { get; }
-        public void Save(Writer writer);
+        public bool Save(Writer writer);
         public void Update(Writer writer);
-        public void Delete(int id);
+        public void Delete(Writer writer);
         
     }
 }

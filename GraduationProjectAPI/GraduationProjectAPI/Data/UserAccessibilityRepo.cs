@@ -12,9 +12,9 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<UserAccessibility> GetUserAccessibilities => _db.UserAccessibilities;
 
-        public void Delete(int id)
+        public void Delete(UserAccessibility UserAccessibility)
         {
-            var userAccessibility = _db.UserAccessibilities.FirstOrDefault(p => p.Id == id);
+            var userAccessibility = _db.UserAccessibilities.FirstOrDefault(p => p.Id == UserAccessibility.Id);
             if (userAccessibility != null)
             {
                 _db.UserAccessibilities.Remove(userAccessibility);
@@ -25,27 +25,29 @@ namespace GraduationProjectAPI.Data
         }
         public UserAccessibility GetUserAccessibility(int id)
         {
-            var userAccessibility = _db.UserAccessibilities.First(p => p.Id == id);
+            var userAccessibility = _db.UserAccessibilities.FirstOrDefault(p => p.Id == id);
             if (userAccessibility!= null)
                 return userAccessibility;
             else
                 return null;
 
         }
-        public void Save(UserAccessibility userAccessibility)
+        public bool Save(UserAccessibility userAccessibility)
         {
             if (userAccessibility.Id == 0)
             {
-
-                _db.UserAccessibilities.Add(userAccessibility);
-                _db.SaveChanges();
-
+                if (!IsExisting(userAccessibility))
+                {
+                    _db.UserAccessibilities.Add(userAccessibility);
+                    _db.SaveChanges();
+                    return true;
+                }
             }
-
+            return false;
         }
         public void Update(UserAccessibility userAccessibility)
         {
-            var UserAccessibility = _db.UserAccessibilities.First(p => p.Id == userAccessibility.Id);
+            var UserAccessibility = _db.UserAccessibilities.FirstOrDefault(p => p.Id == userAccessibility.Id);
             if (UserAccessibility != null)
             {
                 UserAccessibility.IdUser = userAccessibility.IdUser ;
@@ -53,8 +55,19 @@ namespace GraduationProjectAPI.Data
                 UserAccessibility.AdminOn = userAccessibility.AdminOn;
                 UserAccessibility.IdGroup = userAccessibility.IdGroup;
                 UserAccessibility.IdLibrary = userAccessibility.IdLibrary;
+                UserAccessibility.IdReference = userAccessibility.IdLibrary;
+                UserAccessibility.IdTest = userAccessibility.IdTest;
                 _db.SaveChanges();
             }
+        }
+        public bool IsExisting(UserAccessibility userAccessibility)
+        {
+            var data = _db.UserAccessibilities.Any(p => p.IdAccessibility == userAccessibility.IdAccessibility && p.IdUser == userAccessibility.IdUser);
+            if (data != true)
+            {
+                return false;
+            }
+            else return true;
         }
         public List<AccessibilityDto> getUserAccessibilities(int IdUser)
         {
@@ -117,6 +130,7 @@ namespace GraduationProjectAPI.Data
             {
                 return null;
             }
+            
         }
     }
 }

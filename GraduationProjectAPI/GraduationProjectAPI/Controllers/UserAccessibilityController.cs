@@ -44,8 +44,8 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                db.Save(userAccessibility);
-                return Ok();
+               var data= db.Save(userAccessibility);
+                return Ok(data);
             }
         }
         [HttpPut("{id}")]
@@ -63,9 +63,9 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromQuery] UserAccessibility userAccessibility)
         {
-            db.Delete(id);
+            db.Delete(userAccessibility);
             return Ok();
         }
         [HttpGet]

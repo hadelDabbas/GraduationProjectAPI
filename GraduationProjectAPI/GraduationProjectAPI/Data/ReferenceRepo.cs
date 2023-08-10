@@ -17,6 +17,21 @@ namespace GraduationProjectAPI.Data
             var Reference = _db.References.FirstOrDefault(p => p.Id == reference.Id);
             if (Reference != null)
             {
+                var userRefre = _db.UserReferences.Where(p => p.IdReference == Reference.Id).ToList();
+                var userAccess = _db.UserAccessibilities.Where(p => p.IdReference == Reference.Id).ToList();
+                if(userRefre.Count != 0)
+                {
+                    _db.UserReferences.RemoveRange(userRefre);
+                    _db.SaveChanges();
+                }
+                if(userAccess.Count != 0)
+                {
+                    foreach(UserAccessibility e in userAccess)
+                    {
+                        e.IdReference = 0;
+                        _db.SaveChanges();
+                    }
+                }
                 _db.References.Remove(reference);
                 _db.SaveChanges();
             }
@@ -25,21 +40,25 @@ namespace GraduationProjectAPI.Data
         }
         public Reference GetReference(int id)
         {
-            var reference = _db.References.First(p => p.Id == id);
+            var reference = _db.References.FirstOrDefault(p => p.Id == id);
             if (reference != null)
                 return reference;
             else
                 return null;
 
         }
-        public void Save(Reference reference)
+        public bool Save(Reference reference)
         {
             if (reference.Id == 0)
             {
-                _db.References.Add(reference);
-                _db.SaveChanges();
+                if(!IsExisting(reference))
+                {
+                    _db.References.Add(reference);
+                    _db.SaveChanges();
+                    return true;
+                }
             }
-
+            return false;
         }
         public void Update(Reference reference)
         {
@@ -50,6 +69,7 @@ namespace GraduationProjectAPI.Data
                 Reference.IdContent = reference.IdContent;
                 Reference.Link = reference.Link;
                 Reference.referenceName = reference.referenceName;
+                Reference.IdAdmin = reference.IdAdmin;
                 _db.SaveChanges();
             }
         }
@@ -138,6 +158,15 @@ namespace GraduationProjectAPI.Data
             {
                 return null;
             }
+        }
+        public bool IsExisting(Reference reference)
+        {
+            var data = _db.References.Any(p => p.referenceName == reference.referenceName);
+            if (data != true)
+            {
+                return false;
+            }
+            else return true;
         }
     }
 }

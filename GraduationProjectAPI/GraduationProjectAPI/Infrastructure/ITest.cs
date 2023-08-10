@@ -6,9 +6,9 @@ namespace GraduationProjectAPI.Infrastructure
     {
         public Test GetTest(int id);
         public IQueryable<Test> GetTests { get; }
-        public void Save(Test test);
+        public bool Save(Test test);
         public void Update(Test test);
-        public void Delete(int id);
+        public void Delete(Test test);
         public int GetTestId(string test);
         public List<Content> GetTestContent();
         public List<TestDto> GetTestsForContent(int IdContent);

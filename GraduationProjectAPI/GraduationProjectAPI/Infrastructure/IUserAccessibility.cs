@@ -6,9 +6,9 @@ namespace GraduationProjectAPI.Infrastructure
     {
         public UserAccessibility GetUserAccessibility(int id);
         public IQueryable<UserAccessibility> GetUserAccessibilities { get; }
-        public void Save(UserAccessibility userAccessibility);
+        public bool Save(UserAccessibility userAccessibility);
         public void Update(UserAccessibility userAccessibility);
-        public void Delete(int id);
+        public void Delete(UserAccessibility userAccessibility);
         public List<AccessibilityDto> getUserAccessibilities(int IdUser);
     }
 }

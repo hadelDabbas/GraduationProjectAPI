@@ -12,11 +12,26 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Test> GetTests => _db.Tests;
 
-        public void Delete(int id)
+        public void Delete(Test Test)
         {
-            var test = _db.Tests.FirstOrDefault(p => p.Id == id);
+            var test = _db.Tests.FirstOrDefault(p => p.Id == Test.Id);
             if (test != null)
             {
+                var answer = _db.Answers.Where(p => p.IdTest == test.Id).ToList();
+                var userAccess = _db.UserAccessibilities.Where(p => p.IdTest == test.Id).ToList();
+                if(answer.Count != 0)
+                {
+                    _db.Answers.RemoveRange(answer);
+                    _db.SaveChanges();
+                }
+                if(userAccess.Count != 0)
+                {
+                    foreach(UserAccessibility e in userAccess)
+                    {
+                        e.IdTest = 0;
+                        _db.SaveChanges();
+                    }
+                }
                 _db.Tests.Remove(test);
                 _db.SaveChanges();
             }
@@ -25,29 +40,34 @@ namespace GraduationProjectAPI.Data
         }
         public Test GetTest(int id)
         {
-            var test = _db.Tests.First(p => p.Id == id);
+            var test = _db.Tests.FirstOrDefault(p => p.Id == id);
             if (test != null)
                 return test;
             else
                 return null;
 
         }
-        public void Save(Test test)
+        public bool Save(Test test)
         {
             if (test.Id == 0)
             {
-                _db.Tests.Add(test);
-                _db.SaveChanges();
+                if (!IsExisting(test))
+                {
+                    _db.Tests.Add(test);
+                    _db.SaveChanges();
+                    return true;
+                }
             }
-
+            return false;
         }
         public void Update(Test test)
         {
-            var Test = _db.Tests.First(p => p.Id == test.Id);
+            var Test = _db.Tests.FirstOrDefault(p => p.Id == test.Id);
             if (Test != null)
             {
                 Test.IdContent = test.IdContent;
                 Test.test = test.test;
+                //Test.IdAdmin = test.IdAdmin;
                 _db.SaveChanges();
             }
         }
@@ -123,6 +143,15 @@ namespace GraduationProjectAPI.Data
             {
                 return 0;
             }
+        }
+        public bool IsExisting(Test test)
+        {
+            var data = _db.Tests.Any(p => p.test == test.test);
+            if (data != true)
+            {
+                return false;
+            }
+            else return true;
         }
     }
 }

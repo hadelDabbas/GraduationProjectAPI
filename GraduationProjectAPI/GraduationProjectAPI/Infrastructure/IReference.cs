@@ -6,7 +6,7 @@ namespace GraduationProjectAPI.Infrastructure
     {
         public Reference GetReference(int id);
         public IQueryable<Reference> GetReferences { get; }
-        public void Save(Reference reference);
+        public bool Save(Reference reference);
         public void Update(Reference reference);
         public void Delete(Reference reference);
         public List<string> GetRefrencesContent();

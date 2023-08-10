@@ -11,9 +11,9 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<UserReference> GetUserReferences => _db.UserReferences;
 
-        public void Delete(int id)
+        public void Delete(UserReference UserReference)
         {
-            var userReference = _db.UserReferences.FirstOrDefault(p => p.Id == id);
+            var userReference = _db.UserReferences.FirstOrDefault(p => p.Id == UserReference.Id);
             if (userReference != null)
             {
                 _db.UserReferences.Remove(userReference);
@@ -24,21 +24,25 @@ namespace GraduationProjectAPI.Data
         }
         public UserReference GetUserReference(int id)
         {
-            var userReference = _db.UserReferences.First(p => p.Id == id);
+            var userReference = _db.UserReferences.FirstOrDefault(p => p.Id == id);
             if (userReference != null)
                 return userReference;
             else
                 return null;
 
         }
-        public void Save(UserReference userReference)
+        public bool Save(UserReference userReference)
         {
             if (userReference.Id == 0)
             {
-                _db.UserReferences.Add(userReference);
-                _db.SaveChanges();
+                if (!IsExisting(userReference))
+                {
+                    _db.UserReferences.Add(userReference);
+                    _db.SaveChanges();
+                    return true;
+                }
             }
-
+            return false;
         }
         public void Update(UserReference userReference)
         {
@@ -49,6 +53,15 @@ namespace GraduationProjectAPI.Data
                 UserReference.IdUser = userReference.IdUser;
                 _db.SaveChanges();
             }
+        }
+        public bool IsExisting(UserReference userReference)
+        {
+            var data = _db.UserReferences.Any(p => p.IdReference == userReference.IdReference && p.IdUser == userReference.IdUser);
+            if (data != true)
+            {
+                return false;
+            }
+            else return true;
         }
     }
 }

@@ -5,8 +5,8 @@ namespace GraduationProjectAPI.Infrastructure
     {
         public UserReference GetUserReference(int id);
         public IQueryable<UserReference> GetUserReferences { get; }
-        public void Save(UserReference userReference);
+        public bool Save(UserReference userReference);
         public void Update(UserReference userReference);
-        public void Delete(int id);
+        public void Delete(UserReference userReference);
     }
 }

@@ -42,12 +42,13 @@ namespace GraduationProjectAPI.Data
         }
         public void Update(GameUser gameUser)
         {
-            var GameUser = _db.GameUsers.First(p => p.Id == gameUser.Id);
+            var GameUser = _db.GameUsers.FirstOrDefault(p => p.Id == gameUser.Id);
             if (GameUser != null)
             {
                 GameUser.IdGame = gameUser.IdGame;
                 GameUser.IdUser = gameUser.IdUser;
                 GameUser.userLevel = gameUser.userLevel;
+                GameUser.Score = gameUser.Score;
                 _db.SaveChanges();
             }
         }
