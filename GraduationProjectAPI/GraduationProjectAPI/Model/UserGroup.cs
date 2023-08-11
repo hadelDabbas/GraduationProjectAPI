@@ -7,5 +7,6 @@
         public virtual Group? Group { set; get; }
         public int? IdUser { set; get; }
         public virtual User? User { set; get; }
+        
     }
 }
