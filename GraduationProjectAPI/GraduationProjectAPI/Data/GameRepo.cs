@@ -1,4 +1,5 @@
-﻿using GraduationProjectAPI.Infrastructure;
+﻿using GraduationProjectAPI.Dto;
+using GraduationProjectAPI.Infrastructure;
 using GraduationProjectAPI.Model;
 namespace GraduationProjectAPI.Data
 {
@@ -52,11 +53,12 @@ namespace GraduationProjectAPI.Data
         }
         public void Update(Game game)
         {
-            var Game = _db.Games.First(p => p.Id == game.Id);
+            var Game = _db.Games.FirstOrDefault(p => p.Id == game.Id);
             if (Game != null)
             {
                 Game.GameLevel = game.GameLevel;
                 Game.GameName= game.GameName;
+                Game.Image = game.Image;
                 _db.SaveChanges();
             }
         }
@@ -68,6 +70,67 @@ namespace GraduationProjectAPI.Data
                 return false;
             }
             else return false;
+        }
+        public List<GameDto> GetGamesWithScore(int IdUser)
+        {
+            List<Game> games = _db.Games.ToList();
+            List<GameDto> dto = new List<GameDto>();
+            var user = _db.Users.FirstOrDefault(p => p.Id == IdUser);
+            if (games.Count != 0 && user != null)
+            {
+                foreach (Game e in games)
+                {
+                    List<GameUser> gameUsers = _db.GameUsers.Where(p => p.IdGame == e.Id && p.IdUser==IdUser).ToList();
+                    GameDto gameDto = new GameDto();
+                    if (gameUsers.Count != 0)
+                    {
+                        gameDto.Game = e;
+                        gameDto.GameUser = gameUsers;
+                    }
+                    else
+                    {
+                        gameDto.Game = e;
+                        gameDto.GameUser = null;
+                    }
+                    if (!dto.Contains(gameDto))
+                    {
+                        dto.Add(gameDto);
+                    }
+                }
+                if (dto.Count != 0)
+                {
+                    return dto;
+                }
+                return null;
+            }
+            else return null;
+        }
+        public GameDto GetUserGameLevels(int IdUser, int IdGame)
+        {
+            var user = _db.Users.FirstOrDefault(p => p.Id == IdUser);
+            var game = _db.Games.FirstOrDefault(p => p.Id == IdGame);
+            if(user != null && game != null)
+            {
+                List<GameUser> gameUsers = _db.GameUsers.Where(p => p.IdGame == game.Id && p.IdUser == user.Id).ToList();
+                if(gameUsers.Count != 0)
+                {
+                    GameDto gameDto = new GameDto();
+                    gameDto.Game = game;
+                    gameDto.GameUser = gameUsers;
+                    return gameDto;
+                }
+                else
+                {
+                    GameDto gameDto = new GameDto();
+                    gameDto.Game = game;
+                    gameDto.GameUser = null;
+                    return gameDto;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class GameController : Controller
     {
@@ -67,6 +67,44 @@ namespace GraduationProjectAPI.Controllers
         {
             db.Delete(game);
             return Ok();
+        }
+        [HttpGet]
+        [ActionName("GetGameWithUserScore")]
+        public IActionResult GetGameWithUserScore([FromQuery] int IdUser)
+        {
+            var data = db.GetGamesWithScore(IdUser);
+            if(data != null)
+            {
+                return Ok(data);
+            }
+            else
+            {
+                return Ok(new List<object>());
+              //  return BadRequest();
+            }
+        }
+        [HttpGet]
+        [ActionName("GetUserGameLevels")]
+        public IActionResult GetUserGameLevels([FromQuery] int IdUser,[FromQuery] int IdGame)
+        {
+            if (IdUser != 0 && IdGame != 0)
+            {
+                var data = db.GetUserGameLevels(IdUser,IdGame);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return Ok(new List<object>());
+                   // return NotFound();
+                }
+            }
+            else
+            {
+                return Ok(new List<object>());
+                //  return BadRequest();
+            }
         }
     }
 }
