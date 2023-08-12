@@ -56,7 +56,7 @@ using GraduationProjectAPI.Model;
         public bool Save(Content type)
         {
             //var data = _db.Contents.Where(p => p.typeName == type.typeName);
-            if (type.Id != 0)
+            if (type.Id == 0)
             {
                 if (!IsExisting(type))
                 {

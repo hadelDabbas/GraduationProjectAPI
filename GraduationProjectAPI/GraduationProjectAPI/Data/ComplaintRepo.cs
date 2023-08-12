@@ -9,11 +9,11 @@ namespace GraduationProjectAPI.Data
         {
             _db = db;
         }
-        public IQueryable<Complaint> GetComplaints => _db.Complaints;
+        public List<Complaint> GetComplaints => _db.Complaints.ToList();
 
-        public void Delete(Complaint Complaint)
+        public void Delete(int id)
         {
-            var complaint = _db.Complaints.FirstOrDefault(p => p.Id == Complaint.Id);
+            var complaint = _db.Complaints.FirstOrDefault(p => p.Id == id);
             if (complaint != null)
             {
                 _db.Complaints.Remove(complaint);

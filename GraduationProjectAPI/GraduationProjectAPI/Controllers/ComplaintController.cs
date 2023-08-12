@@ -17,7 +17,7 @@ namespace GraduationProjectAPI.Controllers
         [HttpGet]
         public IActionResult GetComplaints()
         {
-            IQueryable<Complaint> data = db.GetComplaints;
+            List<Complaint> data = db.GetComplaints;
             return Ok(data);
         }
         [HttpGet("{id}")]
@@ -63,7 +63,7 @@ namespace GraduationProjectAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete([FromQuery] Complaint complaint)
+        public IActionResult Delete([FromQuery] int  complaint)
         {
             db.Delete(complaint);
             return Ok();
