@@ -711,6 +711,19 @@ namespace GraduationProjectAPI.Data
             modelBuilder.Entity<UserReference>().HasData(new UserReference { Id = 15, IdUser = 4, IdReference = 15 });
             modelBuilder.Entity<UserReference>().HasData(new UserReference { Id = 16, IdUser = 5, IdReference = 16 });
             modelBuilder.Entity<UserReference>().HasData(new UserReference { Id = 17, IdUser = 5, IdReference = 17 });
+            //seeds for complaint
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 1,complaint= "Please accept my request to join the group", IdUser = 2, type=0 });
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 2, IdUser = 2,complaint= "I want to have admin authority", type = 1 });
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 3, IdUser = 2,complaint= "Please allow me to add new content", type = 2 });
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 4, IdUser = 3, complaint = "Please accept my request to join the group", type = 0 });
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 5, IdUser = 3, complaint = "I want to have admin authority", type = 1 });
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 6, IdUser = 3, complaint = "Please allow me to add new content", type = 2 });
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 7, IdUser = 4, complaint = "Please accept my request to join the group", type = 0 });
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 8, IdUser = 4, complaint = "I want to have admin authority", type = 1 });
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 9, IdUser = 4, complaint = "Please allow me to add new content", type = 2 });
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 10, IdUser = 5, complaint = "Please accept my request to join the group", type = 0 });
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 11, IdUser = 5, complaint = "I want to have admin authority", type = 1 });
+            modelBuilder.Entity<Complaint>().HasData(new Complaint { Id = 12, IdUser = 5, complaint = "Please allow me to add new content", type = 2 });
 
 
 
