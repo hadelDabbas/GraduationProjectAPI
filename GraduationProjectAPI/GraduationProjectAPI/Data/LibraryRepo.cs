@@ -176,5 +176,73 @@ namespace GraduationProjectAPI.Data
             }
             else return true;
         }
+        public Book GetBookByName(int IdLibrary,string searh)
+        {
+            var book = _db.Books.FirstOrDefault(p => p.BookName == searh);
+            var library = _db.Libraries.FirstOrDefault(p => p.Id == IdLibrary);
+            if(book != null && library !=null )
+            {
+               BookLibrary bookLibraries = _db.BookLibraries.FirstOrDefault(p => p.IdBook == book.Id && p.IdLibrary == library.Id);
+                if (bookLibraries != null)
+                {
+                    return book;
+                }
+                else return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public List<Book> GetBookWritersSearch(int IdLibrary, string Writer)
+        {
+            var library = _db.Libraries.FirstOrDefault(p => p.Id == IdLibrary);
+            var writer = _db.Writers.FirstOrDefault(p => p.writerName == Writer && p.IsDeleted == false);
+            List<BookWriter> bookWriters = new List<BookWriter>();
+            List<Book> book = new List<Book>();
+            if (library != null && writer != null)
+            {
+                List<BookLibrary> bookLibraries = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary && p.IsDeleted == false).ToList();
+                foreach (BookLibrary e in bookLibraries)
+                {
+                    // List<BookWriter> books = _db.Writers.Where(p => p.Id == IdWriter && p.id).SelectMany(p => p.BookWriter).ToList();
+                    BookWriter c = _db.BookWriters.FirstOrDefault(p => p.IdWriter == writer.Id && p.IdBook == e.IdBook && p.IsDeleted == false);
+                    if (c != null)
+                        bookWriters.Add(c);
+                }
+                foreach (BookWriter e in bookWriters)
+                {
+                    Book b = _db.Books.FirstOrDefault(p => p.Id == e.IdBook && p.IsDeleted == false);
+                    if (b != null)
+                        book.Add(b);
+                }
+                return book;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public List<Book> GetBookTypeSearch(int IdLibrary, string Type)
+        {
+            var library = _db.Libraries.Where(p => p.Id == IdLibrary);
+            var bookType = _db.BookTypes.FirstOrDefault(p => p.bookType == Type && p.IsDeleted == false);
+            List<Book> book = new List<Book>();
+            if (library != null && bookType != null)
+            {
+                List<BookLibrary> bookLibraries = _db.BookLibraries.Where(p => p.IdLibrary == IdLibrary && p.IsDeleted == false).ToList();
+                foreach (BookLibrary e in bookLibraries)
+                {
+                    Book b = _db.Books.FirstOrDefault(p => p.Id == e.IdBook && p.IdBookType == bookType.Id && p.IsDeleted == false);
+                    if (b != null)
+                        book.Add(b);
+                }
+                return book;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

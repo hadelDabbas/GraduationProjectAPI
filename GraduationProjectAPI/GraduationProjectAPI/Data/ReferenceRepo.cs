@@ -65,11 +65,9 @@ namespace GraduationProjectAPI.Data
             var Reference = _db.References.First(p => p.Id == reference.Id);
             if (Reference != null)
             {
-                Reference.dateTime = reference.dateTime;
                 Reference.IdContent = reference.IdContent;
                 Reference.Link = reference.Link;
                 Reference.referenceName = reference.referenceName;
-                Reference.IdAdmin = reference.IdAdmin;
                 _db.SaveChanges();
             }
         }
@@ -101,7 +99,7 @@ namespace GraduationProjectAPI.Data
         public List<RefrenceDto> GetAllRefrencesAdmins()
         {
             List<RefrenceDto> refrenceDtos = new List<RefrenceDto>();
-            List<Reference> references = _db.References.Where(p => p.IdAdmin != 0).ToList();
+            List<Reference> references = _db.References.ToList();
           //  List<Content> cont = new List<Content>();
           //  List<Content> admincont = new List<Content>();
             List<User> admin = new List<User>();
@@ -109,7 +107,8 @@ namespace GraduationProjectAPI.Data
             {
                foreach(Reference e in references)
                {
-                    User u = _db.Users.FirstOrDefault(p => p.Id == e.IdAdmin);
+                    UserReference userReference = _db.UserReferences.FirstOrDefault(p => p.IdReference == e.Id);
+                    User u = _db.Users.FirstOrDefault(p => p.Id == userReference.IdUser);
                     RefrenceDto dto = new RefrenceDto();
                     if (!admin.Contains(u))
                     {
@@ -141,7 +140,17 @@ namespace GraduationProjectAPI.Data
             if (user != null)
             {
                 List<string> contents = new List<string>();
-                List<Reference> Refcontents = _db.References.Where(p => p.IdContent != 0 && p.IdAdmin == IdUser).ToList();
+                List<UserReference> userReferences = _db.UserReferences.Where(p => p.IdUser == user.Id).ToList();
+                List<Reference> Refcontents = new List<Reference>();
+              //  List<Reference> RefrenceDto = new List<Reference>();
+                foreach(UserReference e in userReferences)
+                {
+                    Reference reference = _db.References.FirstOrDefault(p => p.Id == e.IdReference);
+                    if(!Refcontents.Contains(reference))
+                    {
+                        Refcontents.Add(reference);
+                    }
+                }
                 foreach (Reference e in Refcontents)
                 {
                     Content c = _db.Contents.FirstOrDefault(p => p.Id == e.IdContent);

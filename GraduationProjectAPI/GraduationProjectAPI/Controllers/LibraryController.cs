@@ -159,5 +159,74 @@ namespace GraduationProjectAPI.Controllers
                 return Ok(new List<object>());
             }
         }
+        [HttpGet]
+        [ActionName("GetBookByName")]
+        public IActionResult GetBookByName([FromQuery]int IdLibrary,[FromQuery] string searh)
+        {
+            if(IdLibrary !=0 && searh != null)
+            {
+                var data = db.GetBookByName(IdLibrary, searh);
+                if(data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                   // return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+              //  return BadRequest();
+                return Ok(new List<object>());
+            }
+        }
+        [HttpGet]
+        [ActionName("GetBookTypeSearch")]
+        public IActionResult GetBookTypeSearch([FromQuery]int IdLibrary,[FromQuery] string search)
+        {
+            if(IdLibrary !=0 && search != null)
+            {
+                var data = db.GetBookTypeSearch(IdLibrary, search);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    // return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+                //  return BadRequest();
+                return Ok(new List<object>());
+            }
+        }
+        [HttpGet]
+        [ActionName("GetBookWritersSearch")]
+        public IActionResult GetBookWritersSearch([FromQuery] int IdLibrary, [FromQuery] string search)
+        {
+            if (IdLibrary != 0 && search != null)
+            {
+                var data = db.GetBookWritersSearch(IdLibrary, search);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    // return NotFound();
+                    return Ok(new List<object>());
+                }
+            }
+            else
+            {
+                //  return BadRequest();
+                return Ok(new List<object>());
+            }
+        }
     }
 }

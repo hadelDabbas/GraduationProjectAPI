@@ -78,11 +78,11 @@ namespace GraduationProjectAPI.Data
             modelBuilder.Entity<Follow>().HasData(new Follow { Id = 11, followId = 5, followedId = 3 });
             modelBuilder.Entity<Follow>().HasData(new Follow { Id = 12, followId = 5, followedId = 4 });
             //seeds for Group
-            modelBuilder.Entity<Group>().HasData(new Group { Id = 1,groupName="Thee Physicists" , Description="A Group Of People Interested in History",IdContent=1,Image=null,IsDeleted=false});
-            modelBuilder.Entity<Group>().HasData(new Group { Id = 2, groupName = "The Earth", Description = "A Group Of People Interested in Geography", IdContent = 2, Image = null, IsDeleted = false });
-            modelBuilder.Entity<Group>().HasData(new Group { Id = 3, groupName = "Medicine Informations", Description = "A Group Of People Interested in Medicine", IdContent = 3, Image = null, IsDeleted = false });
-            modelBuilder.Entity<Group>().HasData(new Group { Id = 4, groupName = "Technology", Description = "A Group Of People Interested in Technology", IdContent = 4, Image = null, IsDeleted = false });
-            modelBuilder.Entity<Group>().HasData(new Group { Id = 5, groupName = "The Science ", Description = "A Group Of People Interested in Literature", IdContent = 5, Image = null, IsDeleted = false });
+            modelBuilder.Entity<Group>().HasData(new Group { Id = 1,groupName="Thee Physicists" , Description="A Group Of People Interested in History",IdContent=1,Image=null});
+            modelBuilder.Entity<Group>().HasData(new Group { Id = 2, groupName = "The Earth", Description = "A Group Of People Interested in Geography", IdContent = 2, Image = null });
+            modelBuilder.Entity<Group>().HasData(new Group { Id = 3, groupName = "Medicine Informations", Description = "A Group Of People Interested in Medicine", IdContent = 3, Image = null });
+            modelBuilder.Entity<Group>().HasData(new Group { Id = 4, groupName = "Technology", Description = "A Group Of People Interested in Technology", IdContent = 4, Image = null });
+            modelBuilder.Entity<Group>().HasData(new Group { Id = 5, groupName = "The Science ", Description = "A Group Of People Interested in Literature", IdContent = 5, Image = null });
             //seeds for User Group
             modelBuilder.Entity<UserGroup>().HasData(new UserGroup { Id = 1,IdGroup=1,IdUser=2 });
             modelBuilder.Entity<UserGroup>().HasData(new UserGroup { Id = 2, IdGroup = 2, IdUser = 2 });
@@ -299,10 +299,10 @@ namespace GraduationProjectAPI.Data
             modelBuilder.Entity<BookWriter>().HasData(new BookWriter { Id = 39, IdBook = 39, IdWriter = 34, IsDeleted = false });
             modelBuilder.Entity<BookWriter>().HasData(new BookWriter { Id = 40, IdBook = 40, IdWriter = 35, IsDeleted = false });
             //seeds for libraries
-            modelBuilder.Entity<Library>().HasData(new Library { Id = 1,libraryName="Sham",libraryAddress="AlSabel Street", IsDeleted = false });
-            modelBuilder.Entity<Library>().HasData(new Library { Id = 2, libraryName = "Dar AlTurath", libraryAddress = "Aljamelia", IsDeleted = false });
-            modelBuilder.Entity<Library>().HasData(new Library { Id = 3, libraryName = "Dar AlRabiea", libraryAddress = "AlMokambo", IsDeleted = false });
-            modelBuilder.Entity<Library>().HasData(new Library { Id = 4, libraryName = "Shahmaa", libraryAddress = "AlShahbaa", IsDeleted = false });
+            modelBuilder.Entity<Library>().HasData(new Library { Id = 1,libraryName="Sham",libraryAddress="AlSabel Street" });
+            modelBuilder.Entity<Library>().HasData(new Library { Id = 2, libraryName = "Dar AlTurath", libraryAddress = "Aljamelia" });
+            modelBuilder.Entity<Library>().HasData(new Library { Id = 3, libraryName = "Dar AlRabiea", libraryAddress = "AlMokambo"});
+            modelBuilder.Entity<Library>().HasData(new Library { Id = 4, libraryName = "Shahmaa", libraryAddress = "AlShahbaa" });
             //seeds for book libraries
             modelBuilder.Entity<BookLibrary>().HasData(new BookLibrary { Id = 1,IdBook=1,IdLibrary=1, IsDeleted = false });
             modelBuilder.Entity<BookLibrary>().HasData(new BookLibrary { Id = 2, IdBook = 2, IdLibrary = 1, IsDeleted = false });
@@ -670,29 +670,29 @@ namespace GraduationProjectAPI.Data
             modelBuilder.Entity<Comments>().HasData(new Comments { Id = 181, comment = "very silly", IdUser = 4, IdPost = 41 });
             modelBuilder.Entity<Comments>().HasData(new Comments { Id = 182, comment = "nice one!", IdUser = 5, IdPost = 41 });
             //seeds for user Access
-            modelBuilder.Entity<UserAccessibility>().HasData(new UserAccessibility { Id = 1, IdAccessibility=1,IdUser=2,IdGroup=1,IdLibrary=1,IdReference=1 ,AdminOn="Null"});
-            modelBuilder.Entity<UserAccessibility>().HasData(new UserAccessibility { Id = 2, IdAccessibility = 1, IdUser = 3, IdGroup = 2, IdLibrary = 2, IdReference = 1 ,AdminOn="Null"});
-            modelBuilder.Entity<UserAccessibility>().HasData(new UserAccessibility { Id = 3, IdAccessibility = 1, IdUser = 4, IdGroup = 3, IdLibrary = 3, IdReference = 2 ,AdminOn="Null"});
-            modelBuilder.Entity<UserAccessibility>().HasData(new UserAccessibility { Id = 4, IdAccessibility = 1, IdUser = 5, IdGroup = 5, IdLibrary = 5, IdReference = 3,AdminOn="null" });
-            modelBuilder.Entity<UserAccessibility>().HasData(new UserAccessibility { Id = 5, IdAccessibility = 2, IdUser = 2, IdGroup = 2, IdLibrary = 2, IdReference = 1 ,AdminOn="null"});
+            modelBuilder.Entity<UserAccessibility>().HasData(new UserAccessibility { Id = 1, IdAccessibility=1,IdUser=2,IdGroup=1,IdLibrary=1,IdReference=1 });
+            modelBuilder.Entity<UserAccessibility>().HasData(new UserAccessibility { Id = 2, IdAccessibility = 1, IdUser = 3, IdGroup = 2, IdLibrary = 2, IdReference = 1 });
+            modelBuilder.Entity<UserAccessibility>().HasData(new UserAccessibility { Id = 3, IdAccessibility = 1, IdUser = 4, IdGroup = 3, IdLibrary = 3, IdReference = 2 });
+            modelBuilder.Entity<UserAccessibility>().HasData(new UserAccessibility { Id = 4, IdAccessibility = 1, IdUser = 5, IdGroup = 5, IdLibrary = 5, IdReference = 3 });
+            modelBuilder.Entity<UserAccessibility>().HasData(new UserAccessibility { Id = 5, IdAccessibility = 2, IdUser = 2, IdGroup = 2, IdLibrary = 2, IdReference = 1 });
             //seeds for refrence
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 1,referenceName="dont now",Link= "https://accessmedicine.mhmedical.com/book.aspx?bookid=3095#259856986", dateTime=DateTime.Now,IdContent=3 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 2, referenceName = "dont now", Link = "https://accessmedicine.mhmedical.com/book.aspx?bookid=3212#269128176", dateTime = DateTime.Now, IdContent = 3 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 3, referenceName = "dont now", Link = "https://accessmedicine.mhmedical.com/book.aspx?bookid=1477", dateTime = DateTime.Now, IdContent = 3 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 4, referenceName = "dont now", Link = "https://accessmedicine.mhmedical.com/book.aspx?bookid=2969", dateTime = DateTime.Now, IdContent = 3 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 5, referenceName = "dont now", Link = "https://openstax.org/books/college-physics-2e/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units", dateTime = DateTime.Now, IdContent = 1 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 6, referenceName = "dont now", Link = "https://openstax.org/books/college-physics-2e/pages/1-1-physics-an-introduction", dateTime = DateTime.Now, IdContent = 1 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 7, referenceName = "dont now", Link = "https://openstax.org/books/college-physics-2e/pages/1-2-physical-quantities-and-units", dateTime = DateTime.Now, IdContent = 1 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 8, referenceName = "dont now", Link = "https://openstax.org/books/college-physics-2e/pages/1-4-approximation", dateTime = DateTime.Now, IdContent = 1 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 9, referenceName = "Alfred Wegener: Creator of the Continental Drift Theory (Makers of Modern Science)", Link = "https://www.amazon.com/Alfred-Wegener-Creator-Continental-Science/dp/0816061742", dateTime = DateTime.Now, IdContent = 2 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 10, referenceName = "The Earth: A Very Short Introduction", Link = "https://www.amazon.com/Earth-Very-Short-Introduction/dp/0192803077/ref=sr_1_9?dchild=1&keywords=earth+very+short&qid=1628980604&s=books&sr=1-9", dateTime = DateTime.Now, IdContent = 2 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 11, referenceName = "Essentials of Geology (12th Edition)", Link = "https://www.amazon.com/Essentials-Geology-12th-Frederick-Lutgens/dp/0321947738/ref=sr_1_2?dchild=1&keywords=essential+geology+fredrick&qid=1628980672&s=books&sr=1-2-spell", dateTime = DateTime.Now, IdContent = 2 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 12, referenceName = "Plate Tectonics: A Very Short Introduction (Very Short Introductions): Molnar, Peter", Link = "https://www.amazon.com/Plate-Tectonics-Short-Introduction-Introductions/dp/0198728263/ref=sr_1_3?dchild=1&keywords=earth+science+vsi&qid=1628980553&s=books&sr=1-3", dateTime = DateTime.Now, IdContent = 2 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 13, referenceName = "R Programming in Statistics by Balasubramanian Thiagarajan", Link = "https://www.free-ebooks.net/internet-technology/R-Programming-in-Statistics", dateTime = DateTime.Now, IdContent = 4 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 14, referenceName = "DISCOVER YOUR SPECIALTY by DISCOVER YOUR SPECIALTY", Link = "https://www.free-ebooks.net/internet-technology/DISCOVER-YOUR-SPECIALTY", dateTime = DateTime.Now, IdContent = 4 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 15, referenceName = "Become A Pro Designer Overnight. by Clickdesigns", Link = "https://www.free-ebooks.net/internet-technology/10-Ways-to-Create-The-Perfect-Online-Video", dateTime = DateTime.Now, IdContent = 4 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 16, referenceName = "10 Ways to Create The Perfect Online Video by Mathew", Link = "https://www.amazon.com/Plate-Tectonics-Short-Introduction-Introductions/dp/0198728263/ref=sr_1_3?dchild=1&keywords=earth+science+vsi&qid=1628980553&s=books&sr=1-3", dateTime = DateTime.Now, IdContent = 4 });
-            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 17, referenceName = "Deep Analytics: Technologies for Humanity, AI & Security", Link = "https://www.free-ebooks.net/internet-technology/Deep-Analytics-Technologies-for-Humanity-AI-Security", dateTime = DateTime.Now, IdContent = 4 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 1,referenceName="dont now",Link= "https://accessmedicine.mhmedical.com/book.aspx?bookid=3095#259856986",IdContent=3 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 2, referenceName = "dont now", Link = "https://accessmedicine.mhmedical.com/book.aspx?bookid=3212#269128176",  IdContent = 3 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 3, referenceName = "dont now", Link = "https://accessmedicine.mhmedical.com/book.aspx?bookid=1477",  IdContent = 3 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 4, referenceName = "dont now", Link = "https://accessmedicine.mhmedical.com/book.aspx?bookid=2969",  IdContent = 3 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 5, referenceName = "dont now", Link = "https://openstax.org/books/college-physics-2e/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units", IdContent = 1 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 6, referenceName = "dont now", Link = "https://openstax.org/books/college-physics-2e/pages/1-1-physics-an-introduction",  IdContent = 1 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 7, referenceName = "dont now", Link = "https://openstax.org/books/college-physics-2e/pages/1-2-physical-quantities-and-units", IdContent = 1 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 8, referenceName = "dont now", Link = "https://openstax.org/books/college-physics-2e/pages/1-4-approximation", IdContent = 1 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 9, referenceName = "Alfred Wegener: Creator of the Continental Drift Theory (Makers of Modern Science)", Link = "https://www.amazon.com/Alfred-Wegener-Creator-Continental-Science/dp/0816061742", IdContent = 2 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 10, referenceName = "The Earth: A Very Short Introduction", Link = "https://www.amazon.com/Earth-Very-Short-Introduction/dp/0192803077/ref=sr_1_9?dchild=1&keywords=earth+very+short&qid=1628980604&s=books&sr=1-9", IdContent = 2 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 11, referenceName = "Essentials of Geology (12th Edition)", Link = "https://www.amazon.com/Essentials-Geology-12th-Frederick-Lutgens/dp/0321947738/ref=sr_1_2?dchild=1&keywords=essential+geology+fredrick&qid=1628980672&s=books&sr=1-2-spell", IdContent = 2 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 12, referenceName = "Plate Tectonics: A Very Short Introduction (Very Short Introductions): Molnar, Peter", Link = "https://www.amazon.com/Plate-Tectonics-Short-Introduction-Introductions/dp/0198728263/ref=sr_1_3?dchild=1&keywords=earth+science+vsi&qid=1628980553&s=books&sr=1-3", IdContent = 2 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 13, referenceName = "R Programming in Statistics by Balasubramanian Thiagarajan", Link = "https://www.free-ebooks.net/internet-technology/R-Programming-in-Statistics", IdContent = 4 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 14, referenceName = "DISCOVER YOUR SPECIALTY by DISCOVER YOUR SPECIALTY", Link = "https://www.free-ebooks.net/internet-technology/DISCOVER-YOUR-SPECIALTY",  IdContent = 4 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 15, referenceName = "Become A Pro Designer Overnight. by Clickdesigns", Link = "https://www.free-ebooks.net/internet-technology/10-Ways-to-Create-The-Perfect-Online-Video", IdContent = 4 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 16, referenceName = "10 Ways to Create The Perfect Online Video by Mathew", Link = "https://www.amazon.com/Plate-Tectonics-Short-Introduction-Introductions/dp/0198728263/ref=sr_1_3?dchild=1&keywords=earth+science+vsi&qid=1628980553&s=books&sr=1-3",  IdContent = 4 });
+            modelBuilder.Entity<Reference>().HasData(new Reference { Id = 17, referenceName = "Deep Analytics: Technologies for Humanity, AI & Security", Link = "https://www.free-ebooks.net/internet-technology/Deep-Analytics-Technologies-for-Humanity-AI-Security",  IdContent = 4 });
             //seeds for User Refrence
             modelBuilder.Entity<UserReference>().HasData(new UserReference { Id = 1,IdUser=2,IdReference=1 });
             modelBuilder.Entity<UserReference>().HasData(new UserReference { Id = 2, IdUser = 3, IdReference = 2 });
