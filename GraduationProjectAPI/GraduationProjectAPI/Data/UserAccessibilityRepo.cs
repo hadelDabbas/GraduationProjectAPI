@@ -52,7 +52,6 @@ namespace GraduationProjectAPI.Data
             {
                 UserAccessibility.IdUser = userAccessibility.IdUser ;
                 UserAccessibility.IdAccessibility = userAccessibility.IdAccessibility;
-                UserAccessibility.AdminOn = userAccessibility.AdminOn;
                 UserAccessibility.IdGroup = userAccessibility.IdGroup;
                 UserAccessibility.IdLibrary = userAccessibility.IdLibrary;
                 UserAccessibility.IdReference = userAccessibility.IdLibrary;
