@@ -9,7 +9,7 @@ namespace GraduationProjectAPI.Infrastructure
         public bool Save(Reference reference);
         public void Update(Reference reference);
         public void Delete(Reference reference);
-        public List<string> GetRefrencesContent();
+        public List<Content> GetRefrencesContent();
         public List<Reference> GetRefrenceLink(int IdContenet);
         public List<RefrenceDto> GetAllRefrencesAdmins();
         public List<string> GetRefrenceByAdmin(int IdUser);

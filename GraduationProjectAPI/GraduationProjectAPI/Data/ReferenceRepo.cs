@@ -71,19 +71,23 @@ namespace GraduationProjectAPI.Data
                 _db.SaveChanges();
             }
         }
-        public List<string> GetRefrencesContent()
+        public List<Content> GetRefrencesContent()
         {
             List<string> contents = new List<string>();
+            List<Content> Contents = new List<Content>();
             List<Reference> Refcontents = _db.References.Where(p => p.IdContent != 0).ToList();
             foreach(Reference e in Refcontents)
             {
                 Content c = _db.Contents.FirstOrDefault(p => p.Id == e.IdContent);
-                if( !contents.Contains(c.typeName))
-                contents.Add(c.typeName);
+                if (!contents.Contains(c.typeName))
+                {
+                    contents.Add(c.typeName);
+                    Contents.Add(c);
+                }
             }
-            if (contents.Count != 0)
+            if (Contents.Count != 0)
             {
-                return contents;
+                return Contents;
             }
             else return null;
         }
