@@ -65,7 +65,9 @@ namespace GraduationProjectAPI.Data
             {
                 //    var groupPost = _db.Posts.Where(p => p.IdGroup == g.Id).SelectMany(t=>t.Comment).Include(r=>r.Post).ToList();
                 var groupPost = _db.Posts.Where(p => p.IdGroup == g.Id && p.IdUser != idUser).Include(R => R.Comment).Include(r => r.Group).ToList();
-                posts.AddRange(groupPost);
+               
+                    posts.AddRange(groupPost);
+     
             }
 
         }
@@ -75,7 +77,7 @@ namespace GraduationProjectAPI.Data
             {
                 // var userPost = _db.Users.Where(p => p.Id == f.followedId).SelectMany(p => p.Post.SelectMany(t=>t.Comment)).ToList();
                 //  var data = _db.Posts.Where(p => p.IdUser == f.followedId).SelectMany(p => p.Comment).Include(r => r.Post).ToList();
-                var data = _db.Posts.Where(p => p.IdUser == f.followedId).Include(r => r.Comment).ToList();
+                var data = _db.Posts.Where(p => p.IdUser == f.followedId && p.IdGroup==0).Include(r => r.Comment).ToList();
                 posts.AddRange(data);
             }
          
@@ -173,6 +175,7 @@ namespace GraduationProjectAPI.Data
                 foreach(UserGroup ug in userGroup)
                 {
                 Group  data = _db.Groups.Where(p => p.Id == ug.IdGroup && p.IdContent == IdContent).FirstOrDefault();
+                    if(data != null)
                     group.Add(data);
                 }       
                 users = _db.Follows.Where(p => p.followId == IdUser).ToList();
@@ -204,7 +207,7 @@ namespace GraduationProjectAPI.Data
         {
             foreach (Follow f in users)
             {
-                var data = _db.Posts.Where(p => p.IdUser == f.followedId && p.IdContent == IdContent).Include(r => r.Comment).ToList();
+                var data = _db.Posts.Where(p => p.IdUser == f.followedId && p.IdContent == IdContent &&p.IdGroup==0).Include(r => r.Comment).ToList();
                 posts.AddRange(data);
             }
         }
