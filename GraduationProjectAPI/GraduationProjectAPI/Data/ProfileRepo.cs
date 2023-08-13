@@ -82,7 +82,7 @@ namespace GraduationProjectAPI.Data
                         PostDto postDto = new PostDto();
                         if (up != null)
                         {
-                            if (p.IdGroup == null)
+                            if (p.IdGroup == 0)
                             {
                                 postDto.UserName = user.UserName;
                                 postDto.UserImage = user.Image;
