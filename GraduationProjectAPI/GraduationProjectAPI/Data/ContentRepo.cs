@@ -64,9 +64,9 @@ using GraduationProjectAPI.Model;
                     _db.SaveChanges();
                     return true;
                 }
-
+                else return false;
             }
-            return false;
+           else  return false;
         }
         public void Update(Content type)
         {
@@ -79,8 +79,9 @@ using GraduationProjectAPI.Model;
         }
         public bool IsExisting(Content content)
         {
-            var data = _db.Contents.Any(p => p.typeName == content.typeName);
-            if (data != true)
+            var data = _db.Contents.Any(p => p.typeName.Equals(content.typeName));
+            // var data = _db.Contents.Where(u => string.Equals(u.typeName, content.typeName, StringComparison.CurrentCultureIgnoreCase));
+            if (data == false)
             {
                 return false;
             }

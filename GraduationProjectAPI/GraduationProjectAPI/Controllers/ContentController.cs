@@ -45,8 +45,8 @@ namespace GraduationProjectAPI.Controllers
             }
             else
             {
-                db.Save(type);
-                return Ok();
+               var data= db.Save(type);
+                return Ok(data);
             }
         }
         [HttpPut("{id}")]

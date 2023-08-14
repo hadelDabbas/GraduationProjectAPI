@@ -73,7 +73,7 @@ namespace GraduationProjectAPI.Data
                 foreach(Comments c in comments)
                 {
                     User u = _db.Users.FirstOrDefault(p => p.Id == c.IdUser);
-                    data.comment = c.comment;
+                    data.comment = c;
                     data.UserImage = u.Image;
                     data.UserName = u.UserName;
                     dto.Add(data);

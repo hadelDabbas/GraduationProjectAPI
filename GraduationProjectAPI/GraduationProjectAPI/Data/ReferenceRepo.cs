@@ -174,8 +174,9 @@ namespace GraduationProjectAPI.Data
         }
         public bool IsExisting(Reference reference)
         {
-            var data = _db.References.Any(p => p.referenceName == reference.referenceName);
-            if (data != true)
+            var data = _db.References.Any(p => p.referenceName.Equals(reference.referenceName));
+            // var data = _db.Contents.Where(u => string.Equals(u.typeName, content.typeName, StringComparison.CurrentCultureIgnoreCase));
+            if (data == false)
             {
                 return false;
             }

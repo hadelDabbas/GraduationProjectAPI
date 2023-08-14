@@ -84,12 +84,13 @@ namespace GraduationProjectAPI.Data
         }
         public bool IsExiting (string GroupName)
         {
-            bool data = _db.Groups.Any(p => p.groupName == GroupName);
-            if (data == true)
+            var data = _db.Groups.Any(p => p.groupName.Equals(GroupName));
+            // var data = _db.Contents.Where(u => string.Equals(u.typeName, content.typeName, StringComparison.CurrentCultureIgnoreCase));
+            if (data == false)
             {
-                return true;
+                return false;
             }
-            else return false;
+            else return true;
         }
         public List<User> GetGroupMembers(int IdGroup)
         {

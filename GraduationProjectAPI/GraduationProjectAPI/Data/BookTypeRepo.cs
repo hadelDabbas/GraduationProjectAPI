@@ -84,10 +84,13 @@ namespace GraduationProjectAPI.Data
         }
         public bool IsExisting(BookType b)
         {
-            bool data = _db.BookTypes.Any(p => p.bookType == b.bookType && p.IsDeleted == false);
-            if (data != false)
-                return true;
-            else return false;
+            var data = _db.BookTypes.Any(p => p.bookType.Equals(b.bookType));
+            // var data = _db.Contents.Where(u => string.Equals(u.typeName, content.typeName, StringComparison.CurrentCultureIgnoreCase));
+            if (data == false)
+            {
+                return false;
+            }
+            else return true;
         }
     }
 }

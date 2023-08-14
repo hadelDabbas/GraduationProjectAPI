@@ -169,8 +169,9 @@ namespace GraduationProjectAPI.Data
         }
         public bool IsExisting(Library library)
         {
-            var data = _db.Libraries.Any(p => p.libraryName == library.libraryName);
-            if (data != true)
+            var data = _db.Libraries.Any(p => p.libraryName.Equals(library.libraryName));
+            // var data = _db.Contents.Where(u => string.Equals(u.typeName, content.typeName, StringComparison.CurrentCultureIgnoreCase));
+            if (data == false)
             {
                 return false;
             }

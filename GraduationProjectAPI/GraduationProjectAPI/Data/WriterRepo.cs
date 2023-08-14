@@ -66,8 +66,9 @@ namespace GraduationProjectAPI.Data
         }
         public bool IsExisting(Writer writer)
         {
-            var data = _db.Writers.Any(p => p.writerName == writer.writerName);
-            if (data != true)
+            var data = _db.Writers.Any(p => p.writerName.Equals(writer.writerName));
+            // var data = _db.Contents.Where(u => string.Equals(u.typeName, content.typeName, StringComparison.CurrentCultureIgnoreCase));
+            if (data == false)
             {
                 return false;
             }

@@ -146,8 +146,9 @@ namespace GraduationProjectAPI.Data
         }
         public bool IsExisting(Test test)
         {
-            var data = _db.Tests.Any(p => p.test == test.test);
-            if (data != true)
+            var data = _db.Tests.Any(p => p.test.Equals(test.test));
+            // var data = _db.Contents.Where(u => string.Equals(u.typeName, content.typeName, StringComparison.CurrentCultureIgnoreCase));
+            if (data == false)
             {
                 return false;
             }

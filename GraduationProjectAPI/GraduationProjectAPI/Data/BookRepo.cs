@@ -61,10 +61,13 @@ namespace GraduationProjectAPI.Data
         }
         public bool IsExisting(Book b)
         {
-            bool data = _db.Books.Any(p => p.BookName == b.BookName);
-            if (data != false)
-                return true;
-            else return false;
+            var data = _db.Books.Any(p => p.BookName.Equals(b.BookName));
+            // var data = _db.Contents.Where(u => string.Equals(u.typeName, content.typeName, StringComparison.CurrentCultureIgnoreCase));
+            if (data == false)
+            {
+                return false;
+            }
+            else return true;
         }
         public BookDetailsDto BookDetails(int IdBook)
         {

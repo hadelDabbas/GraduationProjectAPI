@@ -64,12 +64,13 @@ namespace GraduationProjectAPI.Data
         }
         public bool IsExisting(Game game)
         {
-            var data = _db.Games.Any(p => p.GameName == game.GameName);
-            if (data != true)
+            var data = _db.Games.Any(p => p.GameName.Equals(game.GameName));
+            // var data = _db.Contents.Where(u => string.Equals(u.typeName, content.typeName, StringComparison.CurrentCultureIgnoreCase));
+            if (data == false)
             {
                 return false;
             }
-            else return false;
+            else return true;
         }
         public List<GameDto> GetGamesWithScore(int IdUser)
         {

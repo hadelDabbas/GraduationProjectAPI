@@ -80,15 +80,13 @@ namespace GraduationProjectAPI.Data
         }
         public bool IsExisiting(string name)
         {
-            var data = _db.Accessibilities.FirstOrDefault(p => p.AccessibilityType == name);
-            if(data != null)
-            {
-                return true;
-            }
-            else
+            var data = _db.Accessibilities.Any(p => p.AccessibilityType.Equals(name));
+            // var data = _db.Contents.Where(u => string.Equals(u.typeName, content.typeName, StringComparison.CurrentCultureIgnoreCase));
+            if (data == false)
             {
                 return false;
             }
+            else return true;
         }
     }
 }
