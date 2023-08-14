@@ -14,9 +14,9 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<Group> GetGroups => _db.Groups;
 
-        public void Delete(Group Group)
+        public void Delete(int id)
         {
-            var group = _db.Groups.FirstOrDefault(p => p.Id == Group.Id);
+            var group = _db.Groups.FirstOrDefault(p => p.Id == id);
             if (group != null)
             {
                 var userGroup = _db.UserGroups.Where(p => p.IdGroup == group.Id).ToList();

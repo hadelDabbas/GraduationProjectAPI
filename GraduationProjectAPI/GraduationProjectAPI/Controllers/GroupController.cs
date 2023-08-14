@@ -67,7 +67,7 @@ namespace GraduationProjectAPI.Controllers
         }
         [HttpDelete]
         [ActionName("Delete")]
-        public IActionResult Delete([FromQuery] Group group)
+        public IActionResult Delete([FromQuery] int group)
         {
             db.Delete(group);
             return Ok();

@@ -11,13 +11,13 @@ namespace GraduationProjectAPI.Data
         }
         public IQueryable<BookType> GetBookTypes => _db.BookTypes.Where(p=>p.IsDeleted==false);
 
-        public void Delete(BookType BookType)
+        public void Delete(int id)
         {
-            var bookType= _db.BookTypes.FirstOrDefault(p => p.Id == BookType.Id && p.IsDeleted==false );
+            var bookType= _db.BookTypes.FirstOrDefault(p => p.Id == id && p.IsDeleted==false );
             if (bookType != null)
             {
                 bookType.IsDeleted = true;
-                List<Book> books = _db.Books.Where(p => p.IdBookType == BookType.Id && p.IsDeleted == false).ToList();
+                List<Book> books = _db.Books.Where(p => p.IdBookType == id && p.IsDeleted == false).ToList();
                 foreach(Book e in books)
                 {
                     DeleteBookLibraries(e.Id);
