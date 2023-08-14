@@ -48,7 +48,7 @@ namespace GraduationProjectAPI.Controllers
                 return Ok(data);
             }
         }
-        [HttpPut("{id}")]
+        [HttpPut]
         public IActionResult Put([FromBody] UserPost userPost)
         {
             if (userPost == null || userPost.Id == 0)
