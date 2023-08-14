@@ -88,7 +88,7 @@ namespace GraduationProjectAPI.Data
             {
               //  var user = _db.Users.Where(p => p.Id == idUser);
                 //var interaction = _db.UserPosts.Where(p => p.IdUser == idUser && p.IdPost==e.IdPost);
-                if(e.IdGroup == 0)
+                if(e.IdGroup == 0 || e.IdGroup ==null )
                {
                     PostDto dto = new PostDto();
                     UserPost interaction = _db.UserPosts.Where(p=> p.IdPost == e.Id && p.IdUser==idUser).Include(r => r.Post).Include(r => r.User).FirstOrDefault();
@@ -123,7 +123,7 @@ namespace GraduationProjectAPI.Data
                         postDtos.Add(dto);
                     }
                 }
-                else if(e.IdGroup != 0)
+                else if(e.IdGroup != 0 )
                 {
 
                     PostDto dto = new PostDto();

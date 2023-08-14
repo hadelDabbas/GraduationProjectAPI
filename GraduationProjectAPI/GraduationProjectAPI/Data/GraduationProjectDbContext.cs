@@ -152,7 +152,7 @@ namespace GraduationProjectAPI.Data
             modelBuilder.Entity<Game>().HasData(new Game { Id = 4, GameName = "Foucs Game", GameLevel = null, Image = null });
             modelBuilder.Entity<Game>().HasData(new Game { Id = 5, GameName = "Packet Game", GameLevel = null, Image = null });
             //seeds pof user game
-            modelBuilder.Entity<GameUser>().HasData(new GameUser { Id = 1, IdGame=1,IdUser=1,Score=1,userLevel="1" });
+            modelBuilder.Entity<GameUser>().HasData(new GameUser { Id = 1, IdGame=1,IdUser=2,Score=1,userLevel="1" });
             modelBuilder.Entity<GameUser>().HasData(new GameUser { Id = 2, IdGame = 2, IdUser = 2, Score = 1, userLevel = "1" });
             modelBuilder.Entity<GameUser>().HasData(new GameUser { Id = 3, IdGame = 3, IdUser = 2, Score = 1, userLevel = "1" });
             modelBuilder.Entity<GameUser>().HasData(new GameUser { Id = 4, IdGame = 4, IdUser = 2, Score = 1, userLevel = "1" });
@@ -889,8 +889,21 @@ namespace GraduationProjectAPI.Data
             modelBuilder.Entity<UserPost>().HasData(new UserPost { Id = 162, IdUser = 5, IdPost = 39, Interaction = true });
             modelBuilder.Entity<UserPost>().HasData(new UserPost { Id = 163, IdUser = 5, IdPost = 40, Interaction = true });
             modelBuilder.Entity<UserPost>().HasData(new UserPost { Id = 164, IdUser = 5, IdPost = 41, Interaction = true });
+            //seeds for test
+            modelBuilder.Entity<Test>().HasData(new Test { Id = 1, test="hell",IdContent=1 });
+            modelBuilder.Entity<Test>().HasData(new Test { Id = 2, test = "hi", IdContent = 1 });
+            modelBuilder.Entity<Test>().HasData(new Test { Id = 3, test = "hello", IdContent = 2 });
+            modelBuilder.Entity<Test>().HasData(new Test { Id = 4, test = "hi", IdContent = 2 });
+            //seeds for answer
+            modelBuilder.Entity<Answer>().HasData(new Answer { Id = 1, answer = "yes", CorrectAnswer = true, IdTest = 1 });
+            modelBuilder.Entity<Answer>().HasData(new Answer { Id = 2, answer = "No", CorrectAnswer = false, IdTest = 1 });
+            modelBuilder.Entity<Answer>().HasData(new Answer { Id = 3, answer = "yes", CorrectAnswer = true, IdTest = 2 });
+            modelBuilder.Entity<Answer>().HasData(new Answer { Id = 4, answer = "No", CorrectAnswer = false, IdTest = 2 });
+            modelBuilder.Entity<Answer>().HasData(new Answer { Id = 5, answer = "yes", CorrectAnswer = true, IdTest = 3 });
+            modelBuilder.Entity<Answer>().HasData(new Answer { Id = 6, answer = "No", CorrectAnswer = false, IdTest = 3 });
 
-
+            modelBuilder.Entity<Answer>().HasData(new Answer { Id = 7, answer = "yes", CorrectAnswer = true, IdTest = 4 });
+            modelBuilder.Entity<Answer>().HasData(new Answer { Id = 8, answer = "No", CorrectAnswer = false, IdTest = 4 });
 
 
         }
